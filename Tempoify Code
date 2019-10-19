@@ -1,0 +1,193 @@
+#################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = This is the code for Tempoify. This is a game about
+#		using your temperature to choose a song for you to
+#		play a game with.
+#Date = November 3, 2019
+###################################################################
+
+# values that needs to be imported 
+import pygame, sys
+from pygame.locals import *
+from random import randint
+pygame.init()
+from time import sleep
+import RPi.GPIO as GPIO
+
+######################
+
+#Variables for program
+WIDTH = 800
+HEIGHT = 800
+
+#use the Broadcom pin mode
+GPIO.setmode(GPIO.BCM)
+
+#setup the input and output pins
+GPIO.setup(switches, GPIO.IN, pull_up_down= GPIO.PUD_DOWN)
+GPIO.setup(leds, GPIO.OUT)
+
+######################
+
+#set to True to enable debugging
+DEBUG = False
+
+######################
+
+class Tempoify(object):
+  lose = False
+  
+    def __init__(self, temperature):
+    	self.temperture = temperature
+    
+    @property
+    def temperature(self):
+        return self._temperature
+    
+    @temperature.setter
+    def temperature(self, value):
+        self._temperature = value
+      
+    
+    def pickSong(temp):
+      temp = #based on what the lilypad says
+  		if (temp < 97.9):
+                    #This would be a sad song
+                    # if its slow song, it takes you to a new window where the sad song would play
+                    screen = slowsongscreen() #should they be functions? this is just placeholder
+    		    song = "hi.wav" # not actual songs, this is jsut placeholder
+    		    return song
+  		elif (temp < 98.9):
+    		    #This would be a nuteral song
+                    # if its neutral song, it takes you to a new window where the neutral song would play
+                    screen = mediumsongscreen() #should they be functions? this is just placeholder
+    		    song = "no.wav"  # not actual songs, this is jsut placeholder
+    		    return song
+  		else:
+                    #This would be a happy song
+                    # if its happy song, it takes you to a new window where the happy song would play
+                    screen = fastsongscreen() #should they be functions? this is just placeholder
+    		    song = "bye.wav"  # not actual songs, this is jsut placeholder
+    		    return song
+		
+    
+    def winner(self):
+      #function for if you win
+      GPIOClass.youWin()
+      pass
+    
+    
+    def loser(self):
+      #function for if you loose
+      GPIOClass.youLose()
+      pass
+      
+    
+    def process(self):
+      #what happens when buttons are pressed or
+      # if you miss 3 times, then its game over
+      missed = 0
+    
+    def play(self):
+        #calls all functions for the game to play
+        if (not lose):
+            pass
+        else:
+            self.loser()
+            GPIOClass.youLose()
+
+#####################
+#Move arrows class
+
+class moveArrows(object):
+  
+        
+#####################
+
+class GPIOClass(object):
+    #set the GPIO pin numbers
+    #the switches (from L to R)
+    switches = [20, 16, 12, 26 ]
+    #the LEDs (from L to R)
+    leds = [6, 13, 19, 21 ]
+  
+  def __init__(self, gameState):
+    self.gameState = gameState
+    
+    
+  def youLose(self):
+    #Blinks the lights slowly when you lose
+    for i in range(0, 4):
+        self.all_on()
+        sleep(0.5)
+        self.all_off()
+        sleep(0.5)
+  
+  
+  def blinkLight(self):
+    #Blinks the correct light when you press the button
+    pass
+  
+  
+  def youWin(self):
+    #Blinks the lights qickly when you win
+    for i in range(0, 4):
+        self.all_on()
+        sleep(0.1)
+        self.all_off()
+        sleep(0.1)
+  
+  def getTemp(self):
+    #this function gets the temperature from the Lily Pad
+    pass
+
+
+  def all_on(self):
+    #this function turns the LEDs on
+    for i in leds:
+        GPIO.output(leds, True)
+
+
+  def all_off(self):
+    #this function turns the LEDs off
+    for i in leds:
+        GPIO.output(leds, False)
+
+
+    
+
+######################
+
+class Main(Frame):
+        
+    def titleScreen(self):
+    	pass
+    
+    def slowSongScreen(self):
+      pass
+    
+    def mediumSongScreen(self):
+      pass
+    
+    def FastSongScreen(self):
+      pass
+    
+    def endingScreen(self):
+      pass
+    
+    def setImage(self):
+      pass
+    
+#######################
+
+#create the window
+window = Tk()
+window.geometry("{}x{}".format(WIDTH, HEIGHT))
+window.title("Tempoify! :D")
+Main.setImage() 
+s = Main(window)
+#wait for the window to close
+window.mainloop()
+
+
