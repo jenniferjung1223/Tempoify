@@ -1,0 +1,62 @@
+import pygame, sys
+from pygame.locals import *
+from random import randint
+from time import sleep
+
+pygame.init()
+
+speed = 30 # frames per second
+WIDTH = 1100
+HEIGHT = 700
+GameState = "play" #this can be play, title, or end
+class MoveArrow(object):
+    
+
+    arrowRight = pygame.image.load("red right.png")
+    arrowLeft = pygame.image.load("blue left.png")
+    arrowUp = pygame.image.load("green up.png")
+    arrowDown = pygame.image.load("yellow down.png")
+    grayUp =pygame.image.load("gray up.png")
+    grayDown =pygame.image.load("gray down.png")
+    grayLeft =pygame.image.load("gray left.png")
+    grayRight =pygame.image.load("gray right.png")
+
+
+    y = 0
+    x1 = 50
+    x2 = 350
+    x3 = 650
+    x4 = 950
+
+    arrow = [arrowRight, arrowLeft, arrowUp, arrowDown]
+    x = [x1, x2, x3, x4]
+    
+speedControl = pygame.time.Clock()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("try.jpg")
+background = pygame.transform.scale(background,(WIDTH,HEIGHT)) ## Make it the same size as the screen
+pygame.display.set_caption("Animation")
+white = (255, 255, 255)
+black = ( 0, 0, 0)
+
+while True: # game loop
+    screen.blit(background,(0,0)) ## Blit the background onto the screen first
+    screen.blit(MoveArrow.grayRight, (MoveArrow.x1, 575))
+    screen.blit(MoveArrow.grayLeft, (MoveArrow.x2, 575))
+    screen.blit(MoveArrow.grayUp, (MoveArrow.x3, 575))
+    screen.blit(MoveArrow.grayDown, (MoveArrow.x4, 575))
+    
+    pickArrow = randint(0, len(MoveArrow.arrow) - 1)
+    pickX = MoveArrow.x[pickArrow]
+    chosenArrow = MoveArrow.arrow[pickArrow]
+    MoveArrow.y += 5
+    screen.blit(chosenArrow, (pickX, MoveArrow.y))
+    sleep(1)
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+    pygame.display.flip()
+    pygame.display.update()
+    speedControl.tick(speed)
