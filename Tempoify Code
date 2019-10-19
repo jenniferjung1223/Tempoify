@@ -178,16 +178,5 @@ class Main(Frame):
     
     def setImage(self):
       pass
-    
-#######################
-
-#create the window
-window = Tk()
-window.geometry("{}x{}".format(WIDTH, HEIGHT))
-window.title("Tempoify! :D")
-Main.setImage() 
-s = Main(window)
-#wait for the window to close
-window.mainloop()
 
 
