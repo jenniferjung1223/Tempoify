@@ -48,11 +48,35 @@ while True:
     screen.blit(MoveArrow.grayUp, (MoveArrow.x3, 575))
     screen.blit(MoveArrow.grayDown, (MoveArrow.x4, 575))
     
-    pickArrow = randint(0, len(MoveArrow.arrow) - 1)
-    pickX = MoveArrow.x[pickArrow]
-    chosenArrow = MoveArrow.arrow[pickArrow]
+while True:
+    chosenArrow = MoveArrow.arrowRight
     MoveArrow.y += 5
-    screen.blit(chosenArrow, (pickX, MoveArrow.y))
+    screen.blit(chosenArrow, (x1, MoveArrow.y))
+    #We will need something here that makes sure it doesnt disapear until it hits the bottom
+    sleepTime = randint(0, 10)
+    sleep(sleepTime)
+    
+while True:
+    chosenArrow = MoveArrow.arrowLeft
+    MoveArrow.y += 5
+    screen.blit(chosenArrow, (x2, MoveArrow.y))
+    #We will need something here that makes sure it doesnt disapear until it hits the bottom
+    sleepTime = randint(0, 10)
+    sleep(sleepTime)
+    
+while True:
+    chosenArrow = MoveArrow.arrowUp
+    MoveArrow.y += 5
+    screen.blit(chosenArrow, (x3, MoveArrow.y))
+    #We will need something here that makes sure it doesnt disapear until it hits the bottom
+    sleepTime = randint(0, 10)
+    sleep(sleepTime)
+    
+while True:
+    chosenArrow = MoveArrow.arrowDown
+    MoveArrow.y += 5
+    screen.blit(chosenArrow, (x4, MoveArrow.y))
+    #We will need something here that makes sure it doesnt disapear until it hits the bottom
     sleepTime = randint(0, 10)
     sleep(sleepTime)
 
