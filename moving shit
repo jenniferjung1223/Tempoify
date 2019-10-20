@@ -51,7 +51,7 @@ while True:
 while True:
     chosenArrow = MoveArrow.arrowRight
     screen.blit(chosenArrow, (x1, MoveArrow.y))
-    if (MoveArrow.y = 700):
+    if (MoveArrow.y == 700):
         sleepTime = randint(0, 10)
         sleep(sleepTime)
     else:
@@ -60,7 +60,7 @@ while True:
 while True:
     chosenArrow = MoveArrow.arrowLeft
     screen.blit(chosenArrow, (x2, MoveArrow.y))
-    if (MoveArrow.y = 700):
+    if (MoveArrow.y == 700):
         sleepTime = randint(0, 10)
         sleep(sleepTime)
     else:
@@ -70,7 +70,7 @@ while True:
 while True:
     chosenArrow = MoveArrow.arrowUp
     screen.blit(chosenArrow, (x3, MoveArrow.y))
-    if (MoveArrow.y = 700):
+    if (MoveArrow.y == 700):
         sleepTime = randint(0, 10)
         sleep(sleepTime)
     else:
@@ -79,7 +79,7 @@ while True:
 while True:
     chosenArrow = MoveArrow.arrowDown
     screen.blit(chosenArrow, (x4, MoveArrow.y))
-    if (MoveArrow.y = 700):
+    if (MoveArrow.y == 700):
         sleepTime = randint(0, 10)
         sleep(sleepTime)
     else:
