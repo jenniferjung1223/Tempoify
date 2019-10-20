@@ -92,9 +92,12 @@ while True: # game loop
     arrow2()
     arrow3()
     arrow4()
-    
+
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if MoveArrow.y > 575:
+            if event.type == pygame.KEYUP:
+                  
+        if event.type == QUIT: 
             pygame.quit()
             sys.exit()
             
