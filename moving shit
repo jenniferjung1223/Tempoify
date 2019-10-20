@@ -41,6 +41,8 @@ black = ( 0, 0, 0)
 
 while True: # game loop
     screen.blit(background,(0,0)) ## Blit the background onto the screen first
+    
+while True:
     screen.blit(MoveArrow.grayRight, (MoveArrow.x1, 575))
     screen.blit(MoveArrow.grayLeft, (MoveArrow.x2, 575))
     screen.blit(MoveArrow.grayUp, (MoveArrow.x3, 575))
@@ -51,12 +53,14 @@ while True: # game loop
     chosenArrow = MoveArrow.arrow[pickArrow]
     MoveArrow.y += 5
     screen.blit(chosenArrow, (pickX, MoveArrow.y))
-    sleep(1)
+    sleepTime = randint(0, 10)
+    sleep(sleepTime)
 
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+            
     pygame.display.flip()
     pygame.display.update()
     speedControl.tick(speed)
