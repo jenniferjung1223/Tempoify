@@ -2,8 +2,8 @@
 #AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 #TITLE = Tempoify
 #Discription = This is the code for Tempoify. This is a game about
-#		using your temperature to choose a song for you to
-#		play a game with.
+#								using your temperature to choose a song for you to
+#								play a game with.
 #Date = November 3, 2019
 ###################################################################
 
@@ -17,10 +17,6 @@ import RPi.GPIO as GPIO
 
 ######################
 
-#Variables for program
-WIDTH = 800
-HEIGHT = 800
-
 #use the Broadcom pin mode
 GPIO.setmode(GPIO.BCM)
 
@@ -30,46 +26,104 @@ GPIO.setup(leds, GPIO.OUT)
 
 ######################
 
-#set to True to enable debugging
+# set to True to enable debugging
 DEBUG = False
+
+######################
+
+#functions
+def arrow1():
+    chosenArrow = MoveArrow.arrowRight
+    screen.blit(chosenArrow, (MoveArrow.x1, MoveArrow.y))
+    if (MoveArrow.y == 800):
+        sleepTime = randint(0, 10)
+        sleep(sleepTime)
+        arrow1()
+    else:
+        MoveArrow.y += 5
+    
+def arrow2():
+    chosenArrow = MoveArrow.arrowLeft
+    screen.blit(chosenArrow, (MoveArrow.x2, MoveArrow.y))
+    if (MoveArrow.y == 800):
+        sleepTime = randint(0, 10)
+        sleep(sleepTime)
+        arrow2()
+    else:
+        MoveArrow.y += 5
+
+def arrow3():
+    chosenArrow = MoveArrow.arrowUp
+    screen.blit(chosenArrow, (MoveArrow.x3, MoveArrow.y))
+    if (MoveArrow.y == 800):
+        sleepTime = randint(0, 10)
+        sleep(sleepTime)
+        arrow3()
+    else:
+        MoveArrow.y += 5
+    
+def arrow4():
+    chosenArrow = MoveArrow.arrowDown
+    screen.blit(chosenArrow, (MoveArrow.x4, MoveArrow.y))
+    if (MoveArrow.y == 800):
+        sleepTime = randint(0, 10)
+        sleep(sleepTime)
+        arrow4()
+    else:
+        MoveArrow.y += 5
+
+def titleScreen(self):
+	pass
+
+def slowSongScreen(self):
+	pass
+
+def mediumSongScreen(self):
+	pass
+
+def FastSongScreen(self):
+	pass
+
+def endingScreen(self):
+	pass
 
 ######################
 
 class Tempoify(object):
   lose = False
   
-    def __init__(self, temperature):
+  	def __init__(self, temperature):
     	self.temperture = temperature
     
     @property
     def temperature(self):
-        return self._temperature
+      return self._temperature
     
     @temperature.setter
     def temperature(self, value):
-        self._temperature = value
+      self._temperature = value
       
     
     def pickSong(temp):
       temp = #based on what the lilypad says
   		if (temp < 97.9):
-                    #This would be a sad song
-                    # if its slow song, it takes you to a new window where the sad song would play
-                    screen = slowsongscreen() #should they be functions? this is just placeholder
-    		    song = "hi.wav" # not actual songs, this is jsut placeholder
-    		    return song
+   			  #This would be a sad song
+          # if its slow song, it takes you to a new window where the sad song would play
+          screen = slowsongscreen() #should they be functions? this is just placeholder
+    			song = "hi.wav" # not actual songs, this is jsut placeholder
+    			return song
   		elif (temp < 98.9):
-    		    #This would be a nuteral song
-                    # if its neutral song, it takes you to a new window where the neutral song would play
-                    screen = mediumsongscreen() #should they be functions? this is just placeholder
-    		    song = "no.wav"  # not actual songs, this is jsut placeholder
-    		    return song
+    			#This would be a nuteral song
+          # if its neutral song, it takes you to a new window where the neutral song would play
+          screen = mediumsongscreen() #should they be functions? this is just placeholder
+    			song = "no.wav"  # not actual songs, this is jsut placeholder
+    			return song
   		else:
-                    #This would be a happy song
-                    # if its happy song, it takes you to a new window where the happy song would play
-                    screen = fastsongscreen() #should they be functions? this is just placeholder
-    		    song = "bye.wav"  # not actual songs, this is jsut placeholder
-    		    return song
+    			#This would be a happy song
+          # if its happy song, it takes you to a new window where the happy song would play
+          screen = fastsongscreen() #should they be functions? this is just placeholder
+    			song = "bye.wav"  # not actual songs, this is jsut placeholder
+    			return song
 		
     
     def winner(self):
@@ -85,32 +139,51 @@ class Tempoify(object):
       
     
     def process(self):
-      #what happens when buttons are pressed or
-      # if you miss 3 times, then its game over
-      missed = 0
+      # what happens when buttons are pressed or 
+      missed = 0 # if you miss 3 times, then its game over
     
-    def play(self):
-        #calls all functions for the game to play
-        if (not lose):
-            pass
-        else:
-            self.loser()
-            GPIOClass.youLose()
+  	def play(self):
+      #calls all functions for the game to play
+      if (not lose):
+        pass
+      else:
+        self.loser()
+        GPIOClass.youLose()
 
 #####################
 #Move arrows class
 
 class moveArrows(object):
+    
+
+    arrowRight = pygame.image.load("red right.png")
+    arrowLeft = pygame.image.load("blue left.png")
+    arrowUp = pygame.image.load("green up.png")
+    arrowDown = pygame.image.load("yellow down.png")
+    grayUp =pygame.image.load("gray up.png")
+    grayDown =pygame.image.load("gray down.png")
+    grayLeft =pygame.image.load("gray left.png")
+    grayRight =pygame.image.load("gray right.png")
+
+
+    y = 0
+    x1 = 50
+    x2 = 350
+    x3 = 650
+    x4 = 950
+
+    arrow = [arrowRight, arrowLeft, arrowUp, arrowDown]
+    x = [x1, x2, x3, x4]
   
         
 #####################
 
 class GPIOClass(object):
-    #set the GPIO pin numbers
-    #the switches (from L to R)
-    switches = [20, 16, 12, 26 ]
-    #the LEDs (from L to R)
-    leds = [6, 13, 19, 21 ]
+  #set the GPIO pin numbers
+	#the switches (from L to R)
+	switches = [20, 16, 12, 26 ]
+	#the LEDs (from L to R)
+	leds = [6, 13, 19, 21 ]
   
   def __init__(self, gameState):
     self.gameState = gameState
@@ -143,13 +216,13 @@ class GPIOClass(object):
     pass
 
 
-  def all_on(self):
+	def all_on(self):
     #this function turns the LEDs on
     for i in leds:
         GPIO.output(leds, True)
 
 
-  def all_off(self):
+	def all_off(self):
     #this function turns the LEDs off
     for i in leds:
         GPIO.output(leds, False)
@@ -158,25 +231,39 @@ class GPIOClass(object):
     
 
 ######################
+  
+speedControl = pygame.time.Clock()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("try.jpg")
+background = pygame.transform.scale(background,(WIDTH,HEIGHT)) ## Make it the same size as the screen
+pygame.display.set_caption("Animation")
+white = (255, 255, 255)
+black = ( 0, 0, 0)
 
-class Main(Frame):
-        
-    def titleScreen(self):
-    	pass
+while True: # game loop
+  
+    screen.blit(background,(0,0)) ## Blit the background onto the screen first
     
-    def slowSongScreen(self):
-      pass
+    screen.blit(MoveArrow.grayRight, (MoveArrow.x1, 575))
+    screen.blit(MoveArrow.grayLeft, (MoveArrow.x2, 575))
+    screen.blit(MoveArrow.grayUp, (MoveArrow.x3, 575))
+    screen.blit(MoveArrow.grayDown, (MoveArrow.x4, 575))
     
-    def mediumSongScreen(self):
-      pass
+    arrow1()
+    arrow2()
+    arrow3()
+    arrow4()  
     
-    def FastSongScreen(self):
-      pass
-    
-    def endingScreen(self):
-      pass
-    
-    def setImage(self):
-      pass
 
+    for event in pygame.event.get():
+        if MoveArrow.y > 575:
+            if event.type == pygame.KEYUP:
+                  pass
+        if event.type == QUIT: 
+            pygame.quit()
+            sys.exit()
+            
+    pygame.display.flip()
+    pygame.display.update()
+    speedControl.tick(speed)
 
