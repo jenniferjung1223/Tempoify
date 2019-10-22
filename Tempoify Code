@@ -7,6 +7,13 @@
 #Date = November 3, 2019
 ###################################################################
 
+#States
+play = False
+title = True
+endGame = False
+
+#######################
+
 # values that needs to be imported 
 import pygame, sys
 from pygame.locals import *
@@ -240,7 +247,7 @@ pygame.display.set_caption("Animation")
 white = (255, 255, 255)
 black = ( 0, 0, 0)
 
-while True: # game loop
+while play: # game loop
   
     screen.blit(background,(0,0)) ## Blit the background onto the screen first
     
@@ -266,4 +273,13 @@ while True: # game loop
     pygame.display.flip()
     pygame.display.update()
     speedControl.tick(speed)
+    
+while title:
+    #Put the code for the title screen here
+    title = False
+    play = True
+    
+    
+while endGame:
+
 
