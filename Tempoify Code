@@ -204,8 +204,8 @@ def arrowCaller():
 
 ######################
 
-WIDTH = 1100
-HEIGHT = 700
+WIDTH = 800
+HEIGHT = 450
 FPS = 30
 RANDOMARROW = USEREVENT + 1
 
