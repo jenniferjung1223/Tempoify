@@ -7,94 +7,104 @@
 #Date = November 3, 2019
 ###################################################################
 
-#States
-play = True
-title = False
-endGame = False
-
-#######################
-
 #values that needs to be imported 
 import pygame, sys
 from pygame.locals import *
 import random
 pygame.init()
 from time import sleep
-##import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
 
-######################
+####################################################################
 
-###use the Broadcom pin mode
-##GPIO.setmode(GPIO.BCM)
-##
-###setup the input and output pins
-##GPIO.setup(switches, GPIO.IN, pull_up_down= GPIO.PUD_DOWN)
-##GPIO.setup(leds, GPIO.OUT)
+#use the Broadcom pin mode
+GPIO.setmode(GPIO.BCM)
 
-######################
+#setup the input and output pins
+GPIO.setup(switches, GPIO.IN, pull_up_down= GPIO.PUD_DOWN)
+GPIO.setup(leds, GPIO.OUT)
+
+####################################################################
 
 # set to True to enable debugging
 DEBUG = False
 
-######################
+####################################################################
 
-##class Tempoify(object):
-##    lose = False
-##
-##    def __init__(self, temperature):
-##        self.temperture = temperature
-##
-##    @property
-##    def temperature(self):
-##        return self._temperature
-##
-##    @temperature.setter
-##    def temperature(self, value):
-##        self._temperature = value
-##      
-##    def pickSong(temp):
-##        temp = #based on what the lilypad says
-##        if (temp < 97.9):
-##            #This would be a sad song
-##            # if its slow song, it takes you to a new window where the sad song would play
-##            screen = slowsongscreen() #should they be functions? this is just placeholder
-##            song = "hi.wav" # not actual songs, this is jsut placeholder
-##            return song
-##        elif (temp < 98.9):
-##            #This would be a nuteral song
-##            # if its neutral song, it takes you to a new window where the neutral song would play
-##            screen = mediumsongscreen() #should they be functions? this is just placeholder
-##            song = "no.wav"  # not actual songs, this is jsut placeholder
-##            return song
-##        else:
-##            #This would be a happy song
-##            # if its happy song, it takes you to a new window where the happy song would play
-##            screen = fastsongscreen() #should they be functions? this is just placeholder
-##            song = "bye.wav"  # not actual songs, this is jsut placeholder
-##            return song
-##
-##    def winner(self):
-##        #function for if you win
-##        GPIOClass.youWin()
-##        
-##    def loser(self):
-##        #function for if you loose
-##        GPIOClass.youLose()
-##
-##    def process(self):
-##        # what happens when buttons are pressed or 
-##        missed = 0 # if you miss 3 times, then its game over
-##
-##    def play(self):
-##        #calls all functions for the game to play
-##        if (not lose):
-##            pass
-##        else:
-##            self.loser()
-##            GPIOClass.youLose()
+#Variables
+WIDTH = 800
+HEIGHT = 450
+FPS = 30
+RANDOMARROW = USEREVENT + 1
 
-#####################
-            
+speedControl = pygame.time.Clock()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("try.jpg")
+background = pygame.transform.scale(background,(WIDTH,HEIGHT)) ## Make it the same size as the screen
+pygame.display.set_caption("Animation")
+white = (255, 255, 255)
+black = ( 0, 0, 0)
+theArrows = [arrow1, arrow2, arrow3, arrow4]
+
+####################################################################
+
+class Tempoify(object):
+    lose = False
+
+    def __init__(self, temperature):
+        self.temperture = temperature
+
+    @property
+    def temperature(self):
+        return self._temperature
+
+    @temperature.setter
+    def temperature(self, value):
+        self._temperature = value
+      
+    def pickSong(temp):
+        temp = #based on what the lilypad says
+        if (temp < 97.9):
+            #This would be a sad song
+            # if its slow song, it takes you to a new window where the sad song would play
+            screen = slowsongscreen() #should they be functions? this is just placeholder
+            song = "hi.wav" # not actual songs, this is jsut placeholder
+            return song
+        elif (temp < 98.9):
+            #This would be a nuteral song
+            # if its neutral song, it takes you to a new window where the neutral song would play
+            screen = mediumsongscreen() #should they be functions? this is just placeholder
+            song = "no.wav"  # not actual songs, this is jsut placeholder
+            return song
+        else:
+            #This would be a happy song
+            # if its happy song, it takes you to a new window where the happy song would play
+            screen = fastsongscreen() #should they be functions? this is just placeholder
+            song = "bye.wav"  # not actual songs, this is jsut placeholder
+            return song
+
+    def winner(self):
+        #function for if you win
+        GPIOClass.youWin()
+        
+    def loser(self):
+        #function for if you loose
+        GPIOClass.youLose()
+
+    def process(self):
+        # what happens when buttons are pressed or 
+        missed = 0 # if you miss 3 times, then its game over
+
+    def play(self):
+        #calls all functions for the game to play
+        if (not lose):
+            pass
+        else:
+            self.loser()
+            GPIOClass.youLose()
+
+####################################################################
+
 #Move arrows class
 class MoveArrow(object):
 
@@ -116,7 +126,7 @@ class MoveArrow(object):
     arrow = [arrowRight, arrowLeft, arrowUp, arrowDown]
     x = [x1, x2, x3, x4]
 
-######################
+####################################################################
 
 #functions
 def arrow1():
@@ -155,72 +165,63 @@ def arrowCaller():
     random.choice(theArrows)()
     updateDelay = random.randint(0,10000)
     pygame.time.set_timer(RANDOMARROW, updateDelay)
-        
-#####################
 
-##class GPIOClass(object):
-##    #set the GPIO pin numbers
-##    #the switches (from L to R)
-##    switches = [20, 16, 12, 26 ]
-##    #the LEDs (from L to R)
-##    leds = [6, 13, 19, 21 ]
-##  
-##    def __init__(self, gameState):
-##        self.gameState = gameState
-##
-##    def youLose(self):
-##        #Blinks the lights slowly when you lose
-##        for i in range(0, 4):
-##        self.all_on()
-##        sleep(0.5)
-##        self.all_off()
-##        sleep(0.5)
-##
-##    def blinkLight(self):
-##        #Blinks the correct light when you press the button
-##        pass
-##
-##    def youWin(self):
-##        #Blinks the lights qickly when you win
-##        for i in range(0, 4):
-##        self.all_on()
-##        sleep(0.1)
-##        self.all_off()
-##        sleep(0.1)
-##
-##    def getTemp(self):
-##        #this function gets the temperature from the Lily Pad
-##        pass
-##
-##    def all_on(self):
-##        #this function turns the LEDs on
-##        for i in leds:
-##        GPIO.output(leds, True)
-##
-##    def all_off(self):
-##        #this function turns the LEDs off
-##        for i in leds:
-##            GPIO.output(leds, False)
+####################################################################
 
-######################
+#The class for the GPIO stuff
+class GPIOClass(object):
+    #set the GPIO pin numbers
+    #the switches (from L to R)
+    switches = [20, 16, 12, 26 ]
+    #the LEDs (from L to R)
+    leds = [6, 13, 19, 21 ]
+  
+    def __init__(self, gameState):
+        self.gameState = gameState
 
-WIDTH = 800
-HEIGHT = 450
-FPS = 30
-RANDOMARROW = USEREVENT + 1
+    def youLose(self):
+        #Blinks the lights slowly when you lose
+        for i in range(0, 4):
+        self.all_on()
+        sleep(0.5)
+        self.all_off()
+        sleep(0.5)
 
-speedControl = pygame.time.Clock()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-background = pygame.image.load("try.jpg")
-background = pygame.transform.scale(background,(WIDTH,HEIGHT)) ## Make it the same size as the screen
-pygame.display.set_caption("Animation")
-white = (255, 255, 255)
-black = ( 0, 0, 0)
-theArrows = [arrow1, arrow2, arrow3, arrow4]
+    def blinkLight(self):
+        #Blinks the correct light when you press the button
+        pass
+
+    def youWin(self):
+        #Blinks the lights qickly when you win
+        for i in range(0, 4):
+        self.all_on()
+        sleep(0.1)
+        self.all_off()
+        sleep(0.1)
+
+    def getTemp(self):
+        #this function gets the temperature from the Lily Pad
+        pass
+
+    def all_on(self):
+        #this function turns the LEDs on
+        for i in leds:
+        GPIO.output(leds, True)
+
+    def all_off(self):
+        #this function turns the LEDs off
+        for i in leds:
+            GPIO.output(leds, False)
+            
+
+####################################################################
+#MAIN PART OF THE PROGRAM
+####################################################################
+
 
 arrowCaller()
 
-while play: # game loop
+while True: # game loop
   
     screen.blit(background,(0,0)) ## Blit the background onto the screen first
     
@@ -244,13 +245,3 @@ while play: # game loop
     pygame.display.flip()
     pygame.display.update()
     speedControl.tick(FPS)
-    
-while title:
-    #Put the code for the title screen here
-    title = False
-    play = True
-    
-while endGame:
-    pass
-
-
