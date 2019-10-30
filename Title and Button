@@ -5,14 +5,14 @@ import random
 pygame.init()
 
 display_width = 800
-display_height = 600
+display_height = 450
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 
 pygame.display.set_caption('Tempoify')
 
-icon = pygame.image.load("bookshelves.gif")
-pygame.display.set_icon(icon)
+#icon = pygame.image.load("bookshelves.gif")
+#pygame.display.set_icon(icon)
 
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -33,7 +33,7 @@ medfont = pygame.font.SysFont("comicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 75)
 
 
-img = pygame.image.load('bookshelves.gif')
+#img = pygame.image.load('bookshelves.gif')
 # appleimg = pygame.image.load('apple.png')
 
 ##def score(score):
@@ -110,8 +110,6 @@ def pause():
                         pygame.quit()
                         quit()
 
-        
-
         clock.tick(5)
 
 
@@ -140,9 +138,8 @@ def game_intro():
         message_to_screen("we give you the best game possible.", black, 50)
         # message_to_screen("Press C to play, P to pause or Q to quit",black,180)
 
-        button("Play", 150, 500, 100, 50, green, light_green, action="play")
-        button("Temp", 350, 500, 100, 50, yellow, light_yellow, action="Temp")
-        button("Quit", 550, 500, 100, 50, red, light_red, action="quit")
+        button("Play", 150, 375, 100, 50, green, light_green, action="play")
+        button("Quit", 550, 375, 100, 50, red, light_red, action="quit")
 
         pygame.display.update()
 
