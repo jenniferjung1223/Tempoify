@@ -49,60 +49,60 @@ theArrows = [arrow1, arrow2, arrow3, arrow4]
 
 ####################################################################
 
-class Tempoify(object):
-    lose = False
-
-    def __init__(self, temperature):
-        self.temperture = temperature
-
-    @property
-    def temperature(self):
-        return self._temperature
-
-    @temperature.setter
-    def temperature(self, value):
-        self._temperature = value
-      
-    def pickSong(temp):
-        temp = #based on what the lilypad says
-        if (temp < 97.9):
-            #This would be a sad song
-            # if its slow song, it takes you to a new window where the sad song would play
-            screen = slowsongscreen() #should they be functions? this is just placeholder
-            song = "hi.wav" # not actual songs, this is jsut placeholder
-            return song
-        elif (temp < 98.9):
-            #This would be a nuteral song
-            # if its neutral song, it takes you to a new window where the neutral song would play
-            screen = mediumsongscreen() #should they be functions? this is just placeholder
-            song = "no.wav"  # not actual songs, this is jsut placeholder
-            return song
-        else:
-            #This would be a happy song
-            # if its happy song, it takes you to a new window where the happy song would play
-            screen = fastsongscreen() #should they be functions? this is just placeholder
-            song = "bye.wav"  # not actual songs, this is jsut placeholder
-            return song
-
-    def winner(self):
-        #function for if you win
-        GPIOClass.youWin()
-        
-    def loser(self):
-        #function for if you loose
-        GPIOClass.youLose()
-
-    def process(self):
-        # what happens when buttons are pressed or 
-        missed = 0 # if you miss 3 times, then its game over
-
-    def play(self):
-        #calls all functions for the game to play
-        if (not lose):
-            pass
-        else:
-            self.loser()
-            GPIOClass.youLose()
+##class Tempoify(object):
+##    lose = False
+##
+##    def __init__(self, temperature):
+##        self.temperture = temperature
+##
+##    @property
+##    def temperature(self):
+##        return self._temperature
+##
+##    @temperature.setter
+##    def temperature(self, value):
+##        self._temperature = value
+##      
+##    def pickSong(temp):
+##        temp = #based on what the lilypad says
+##        if (temp < 97.9):
+##            #This would be a sad song
+##            # if its slow song, it takes you to a new window where the sad song would play
+##            screen = slowsongscreen() #should they be functions? this is just placeholder
+##            song = "hi.wav" # not actual songs, this is jsut placeholder
+##            return song
+##        elif (temp < 98.9):
+##            #This would be a nuteral song
+##            # if its neutral song, it takes you to a new window where the neutral song would play
+##            screen = mediumsongscreen() #should they be functions? this is just placeholder
+##            song = "no.wav"  # not actual songs, this is jsut placeholder
+##            return song
+##        else:
+##            #This would be a happy song
+##            # if its happy song, it takes you to a new window where the happy song would play
+##            screen = fastsongscreen() #should they be functions? this is just placeholder
+##            song = "bye.wav"  # not actual songs, this is jsut placeholder
+##            return song
+##
+##    def winner(self):
+##        #function for if you win
+##        GPIOClass.youWin()
+##        
+##    def loser(self):
+##        #function for if you loose
+##        GPIOClass.youLose()
+##
+##    def process(self):
+##        # what happens when buttons are pressed or 
+##        missed = 0 # if you miss 3 times, then its game over
+##
+##    def play(self):
+##        #calls all functions for the game to play
+##        if (not lose):
+##            pass
+##        else:
+##            self.loser()
+##            GPIOClass.youLose()
 
 ####################################################################
 
@@ -183,10 +183,10 @@ class GPIOClass(object):
     def youLose(self):
         #Blinks the lights slowly when you lose
         for i in range(0, 4):
-        self.all_on()
-        sleep(0.5)
-        self.all_off()
-        sleep(0.5)
+            self.all_on()
+            sleep(0.5)
+            self.all_off()
+            sleep(0.5)
 
     def blinkLight(self):
         #Blinks the correct light when you press the button
@@ -195,10 +195,10 @@ class GPIOClass(object):
     def youWin(self):
         #Blinks the lights qickly when you win
         for i in range(0, 4):
-        self.all_on()
-        sleep(0.1)
-        self.all_off()
-        sleep(0.1)
+            self.all_on()
+            sleep(0.1)
+            self.all_off()
+            sleep(0.1)
 
     def getTemp(self):
         #this function gets the temperature from the Lily Pad
@@ -207,7 +207,7 @@ class GPIOClass(object):
     def all_on(self):
         #this function turns the LEDs on
         for i in leds:
-        GPIO.output(leds, True)
+            GPIO.output(leds, True)
 
     def all_off(self):
         #this function turns the LEDs off
@@ -222,7 +222,7 @@ class GPIOClass(object):
 execfile('Title.py')
 arrowCaller()
 
-try: 
+try:
     # game loop
   
     screen.blit(background,(0,0)) ## Blit the background onto the screen first
@@ -247,9 +247,10 @@ try:
     pygame.display.flip()
     pygame.display.update()
     speedControl.tick(FPS)
-    
+
 except KeyboardInterrupt:
     #reset the GPIO pins and clean up
     GPIO.cleanup()
     pygame.quit()
     sys.exit()
+
