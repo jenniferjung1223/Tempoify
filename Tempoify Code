@@ -221,7 +221,8 @@ class GPIOClass(object):
 
 arrowCaller()
 
-while True: # game loop
+try: 
+    # game loop
   
     screen.blit(background,(0,0)) ## Blit the background onto the screen first
     
@@ -245,3 +246,9 @@ while True: # game loop
     pygame.display.flip()
     pygame.display.update()
     speedControl.tick(FPS)
+    
+except KeyboardInterrupt:
+    #reset the GPIO pins and clean up
+    GPIO.cleanup()
+    pygame.quit()
+    sys.exit()
