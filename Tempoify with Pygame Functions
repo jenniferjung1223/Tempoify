@@ -1,0 +1,142 @@
+#################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = This is the code for Tempoify. This is a game about
+#		using your temperature to choose a song for you to
+#		play a game with.
+#Date = November 3, 2019
+#################################################################
+
+#values that needs to be imported 
+import pygame, sys
+from pygame.locals import *
+from random import *
+pygame.init()
+from time import sleep
+import RPi.GPIO as GPIO
+from pygame_functions import *
+
+#################################################################
+
+#use the Broadcom pin mode
+GPIO.setmode(GPIO.BCM)
+
+###setup the input and output pins
+##GPIO.setup(switches, GPIO.IN, pull_up_down= GPIO.PUD_DOWN)
+##GPIO.setup(leds, GPIO.OUT)
+
+#################################################################
+
+# set to True to enable debugging
+DEBUG = False
+
+#################################################################
+
+#Variables
+WIDTH = 800
+HEIGHT = 450
+FPS = 30
+
+screenSize (WIDTH, HEIGHT)
+setBackgroundImage("try.jpg")
+
+#################################################################
+
+class Tempoify(object):
+    pass
+
+#################################################################
+
+#The class for the GPIO stuff
+class GPIOClass(object):
+    pass
+
+#################################################################
+
+#grey arrow sprites
+arrowG1 = makeSprite("gray right.png")
+showSprite(arrowG1)
+moveSprite(arrowG1, 725, 0)
+
+arrowG2 = makeSprite("gray left.png")
+showSprite(arrowG2)
+moveSprite(arrowG2, 725, 100)
+
+arrowG3 = makeSprite("gray up.png")
+showSprite(arrowG3)
+moveSprite(arrowG3, 725, 200)
+
+arrowG4 = makeSprite("gray down.png")
+showSprite(arrowG4)
+moveSprite(arrowG4, 725, 300)
+
+#Create the arrow sprites, show them, and move them to the correct point
+arrow1 = makeSprite("red right.png")
+showSprite(arrow1)
+moveSprite(arrow1, 0, 0)
+
+arrow2 = makeSprite("blue left.png")
+showSprite(arrow2)
+moveSprite(arrow2, 0, 100)
+
+arrow3 = makeSprite("green up.png")
+showSprite(arrow3)
+moveSprite(arrow3, 0, 200)
+
+arrow4 = makeSprite("yellow down.png")
+showSprite(arrow4)
+moveSprite(arrow4, 0, 300)
+
+#################################################################
+
+#functions
+def moveArrow1(speed):
+    for x in range(0, 900):
+        moveSprite(arrow1, x, 0)
+
+def moveArrow2(speed):
+    for x in range(0, 900):
+        moveSprite(arrow2, x, 100)
+
+def moveArrow3(speed):
+    for x in range(0, 900):
+        moveSprite(arrow3, x, 200)
+
+def moveArrow4(speed):
+    for x in range(0, 900):
+        moveSprite(arrow4, x, 300)
+
+def ranArrow():
+    a1 = moveArrow1(speed)
+    a2 = moveArrow2(speed)
+    a3 = moveArrow3(speed)
+    a4 = moveArrow4(speed)
+
+    arrowList = [a1, a2, a3, a4]
+    
+    ranIndex = randint(0, len(arrowList) - 1)
+    
+    return arrowList[ranIndex]
+
+#################################################################
+#MAIN PART OF THE PROGRAM
+#################################################################
+
+speed = 1
+misses = 0
+
+missLabel = makeLabel("Misses: 0", 40, 25, 375, "white")
+#(text, fontsize, x, y, color, fontname, background)
+showLabel(missLabel)
+
+#copy paste later, this changes the miss lable
+# changeLabel(missLabel, "Misses: " + str(int(misses)), "white")
+
+ranArrow()
+
+while True:
+    
+    if keyPressed("right"):
+        print "Ya did it!"
+        
+endWait()
