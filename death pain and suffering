@@ -1,0 +1,139 @@
+import pygame, sys
+from pygame.locals import *
+from random import randint
+from time import sleep
+
+pygame.init()
+
+speed = 30 # frames per second
+WIDTH = 800
+HEIGHT = 450
+GameState = "play" #this can be play, title, or end
+arrowSpeed = 5
+
+class MoveArrow(object):
+    
+
+    arrowRight = pygame.image.load("red right.png")
+    arrowLeft = pygame.image.load("blue left.png")
+    arrowUp = pygame.image.load("green up.png")
+    arrowDown = pygame.image.load("yellow down.png")
+    grayUp =pygame.image.load("gray up.png")
+    grayDown =pygame.image.load("gray down.png")
+    grayLeft =pygame.image.load("gray left.png")
+    grayRight =pygame.image.load("gray right.png")
+
+    grayy1 = 0
+    grayy2 = 125
+    grayy3 = 250
+    grayy4 = 375
+    x1 = 0
+    x2 = 0
+    x3 = 0
+    x4 = 0
+    y1 = 0
+    y2 = 125
+    y3 = 250
+    y4 = 375
+    
+    
+speedControl = pygame.time.Clock()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("try.jpg")
+background = pygame.transform.scale(background,(WIDTH,HEIGHT)) ## Make it the same size as the screen
+pygame.display.set_caption("Tempoify!")
+white = (255, 255, 255)
+black = ( 0, 0, 0)
+
+
+#functions
+def arrow1():
+    chosenArrow = MoveArrow.arrowRight
+    screen.blit(chosenArrow, (MoveArrow.x1, MoveArrow.y1))
+    if (MoveArrow.x1 == 800):
+        updateDelay = randint(0,15)
+        lastUpdate = pygame.time.get_ticks()
+        now = pygame.time.get_ticks()
+        if (now - lastUpdate >= updateDelay):
+            MoveArrow.x1 = -100
+    else:
+        MoveArrow.x1 += 5
+    
+def arrow2():
+    chosenArrow = MoveArrow.arrowLeft
+    screen.blit(chosenArrow, (MoveArrow.x2, MoveArrow.y2))
+    if (MoveArrow.x2 == 800):
+      #This is saying that if the first time you get the time and the now is bigger or the same as the randint, then you can move the arrow.
+        updateDelay = randint(0,15)
+        lastUpdate = pygame.time.get_ticks()
+        now = pygame.time.get_ticks()
+        if (now - lastUpdate >= updateDelay):
+            MoveArrow.x2 = -100
+    else:
+        MoveArrow.x2 += 5
+
+def arrow3():
+    chosenArrow = MoveArrow.arrowUp
+    screen.blit(chosenArrow, (MoveArrow.x3, MoveArrow.y3))
+    if (MoveArrow.x3 == 800):
+        updateDelay = randint(0,15)
+        lastUpdate = pygame.time.get_ticks()
+        now = pygame.time.get_ticks()
+        if (now - lastUpdate >= updateDelay):
+            MoveArrow.x3 = -100
+    else:
+        MoveArrow.x3 += 5
+    
+def arrow4():
+    chosenArrow = MoveArrow.arrowDown
+    screen.blit(chosenArrow, (MoveArrow.x4, MoveArrow.y4))
+    if (MoveArrow.x4 == 800):
+        updateDelay = randint(0,15)
+        lastUpdate = pygame.time.get_ticks()
+        now = pygame.time.get_ticks()
+        if (now - lastUpdate >= updateDelay):
+            MoveArrow.x4 = -100
+    else:
+        MoveArrow.x4 += 5
+
+
+  
+while True: # game loop
+    screen.blit(background,(0,0)) ## Blit the background onto the screen first
+    screen.blit(MoveArrow.grayRight, (700, MoveArrow.grayy1))
+    screen.blit(MoveArrow.grayLeft, (700, MoveArrow.grayy2))
+    screen.blit(MoveArrow.grayUp, (700, MoveArrow.grayy3))
+    screen.blit(MoveArrow.grayDown, (700, MoveArrow.grayy4))
+
+    arrow = [arrow1(), arrow2(), arrow3(), arrow4()]
+    for x in range(0,len(arrow)):
+      updateDelay = randint(0,100)
+      lastUpdate = pygame.time.get_ticks()
+      now = pygame.time.get_ticks()
+      if (now - lastUpdate >= updateDelay):
+          arrow[x]
+      
+    keys = pygame.key.get_pressed()
+    
+    for event in pygame.event.get():
+        if MoveArrow.x1 == 700 and MoveArrow.y1 == 0:
+            if keys[pygame.K_RIGHT]:
+                MoveArrow.x1 = -100
+        elif MoveArrow.x2 == 700 and MoveArrow.y2 == 125:
+            if keys[pygame.K_LEFT]:
+                MoveArrow.x2 = -100
+        elif MoveArrow.x3 == 700 and MoveArrow.y3 == 250:
+            if keys[pygame.K_UP]:
+                MoveArrow.x3 = -100
+        elif MoveArrow.x4 == 700 and MoveArrow.y4 == 375:
+            if keys[pygame.K_DOWN]:
+                MoveArrow.x4 = -100
+
+        if event.type == QUIT: 
+            pygame.quit()
+            sys.exit()
+    pygame.display.flip()
+    pygame.display.update()
+    speedControl.tick(speed)
+
+
