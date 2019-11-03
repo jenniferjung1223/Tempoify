@@ -1,0 +1,97 @@
+import pygame, sys
+from pygame.locals import *
+from random import randint
+from time import sleep
+from pygame_functions import *
+
+#Variables
+WIDTH = 800
+HEIGHT = 450
+FPS = 30
+running = True
+BLACK = (0, 0, 0)
+PINK = (253, 171, 159)
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Tempoify")
+
+pygame.init()
+pygame.mixer.init()
+clock = pygame.time.Clock()
+
+
+class ArrowRight(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("red right.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (25, 25)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = 0
+
+class ArrowLeft(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("blue left.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (25, 125)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = 0
+
+class ArrowUp(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("green up.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (25, 250)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = 0
+
+class ArrowDown(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("yellow down.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (25, 375)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = 0
+     
+allArrows = pygame.sprite.Group()
+a1 = ArrowRight()
+a2 = ArrowLeft()
+a3 = ArrowUp()
+a4 = ArrowDown()
+allArrows.add(a1)
+allArrows.add(a2)
+allArrows.add(a3)
+allArrows.add(a4)
+
+while running:
+  clock.tick(FPS)
+  
+  #Update
+  allArrows.update()
+  
+  #draw
+  screen.fill(PINK)
+  allArrows.draw(screen)
