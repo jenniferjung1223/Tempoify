@@ -10,7 +10,7 @@ HEIGHT = 450
 FPS = 30
 running = True
 BLACK = (0, 0, 0)
-PINK = (253, 171, 159)
+sALMoN = (253, 171, 159)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tempoify")
@@ -93,5 +93,5 @@ while running:
   allArrows.update()
   
   #draw
-  screen.fill(PINK)
+  screen.fill(sALMoN)
   allArrows.draw(screen)
