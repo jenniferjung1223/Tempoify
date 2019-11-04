@@ -2,11 +2,12 @@ import pygame, sys
 from pygame.locals import *
 from random import randint
 from time import sleep
+from TemperatureScreen import *
 
 #Variables
 WIDTH = 800
 HEIGHT = 450
-FPS = 30
+FPS = getValues()
 running = True
 BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
@@ -73,6 +74,17 @@ class ArrowRight(pygame.sprite.Sprite):
     if (self.rect.left > (WIDTH + 50)):
         self.rect.right = 0
 
+def playSong(speed):
+  if (speed > 45):
+    #play the fast song
+    fast.play(30)
+  elif (speed > 25):
+    #play the medium song
+    medium.play(30)
+  else:
+    #play the slow song
+    slow.play(30)
+
 class ArrowLeft(pygame.sprite.Sprite):
   
   def __init__(self):
@@ -114,18 +126,6 @@ class ArrowDown(pygame.sprite.Sprite):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
         self.rect.right = 0
-        
-def playSong(speed):
-  if (speed > 45):
-    #play the fast song
-    slow.play(30)
-  elif (speed > 25):
-    #play the medium song
-    medium.play(30)
-  else:
-    #play the slow song
-    fast.play(30)
-     
 
 allArrows = pygame.sprite.Group()
 a1g = ArrowRightGray()
@@ -152,6 +152,7 @@ allArrows.add(a4)
 slow = pygame.mixer.Sound("slow.wav")
 medium = pygame.mixer.Sound("medium.wav")
 fast = pygame.mixer.Sound("fast.wav")
+
 
 playSong(FPS)
 
