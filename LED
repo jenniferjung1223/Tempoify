@@ -1,0 +1,42 @@
+import RPi.GPIO as GPIO # RPi.GPIO can be referred as GPIO from now
+from time import sleep
+
+GPIO.setmode(GPIO.BCM)
+
+GPIO.setwarnings(False)
+
+def lose():
+    GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
+    sleep(0.5)
+    GPIO.output(12, GPIO.HIGH)
+    sleep(0.5)
+    GPIO.output(21, GPIO.HIGH)
+    sleep(0.5)
+    GPIO.output(13, GPIO.HIGH)
+    sleep(0.5)
+    GPIO.output(22, GPIO.HIGH)
+    sleep(0.5)
+    
+##def win():
+##    GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
+##    GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
+##    GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
+##    GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
+##    sleep(0.5)
+##    GPIO.output(22, GPIO.HIGH)
+##    sleep(0.5)
+##    GPIO.output(13, GPIO.HIGH)
+##    sleep(0.5)
+##    GPIO.output(21, GPIO.HIGH)
+##    sleep(0.5)
+##    GPIO.output(12, GPIO.HIGH)
+
+try:
+    lose()
+            
+except KeyboardInterrupt:
+    GPIO.cleanup()
+
