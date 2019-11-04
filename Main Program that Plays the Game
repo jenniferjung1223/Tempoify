@@ -149,6 +149,10 @@ allArrows.add(a3)
 allArrows.add(a4g)
 allArrows.add(a4)
 
+slow = pygame.mixer.Sound("slow.wav")
+medium = pygame.mixer.Sound("medium.wav")
+fast = pygame.mixer.Sound("fast.wav")
+
 playSong(FPS)
 
 while running:
