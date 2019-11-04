@@ -114,6 +114,18 @@ class ArrowDown(pygame.sprite.Sprite):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
         self.rect.right = 0
+        
+def playSong(speed):
+  if (speed > 45):
+    #play the fast song
+    slow.play(30)
+  elif (speed > 25):
+    #play the medium song
+    medium.play(30)
+  else:
+    #play the slow song
+    fast.play(30)
+     
 
 allArrows = pygame.sprite.Group()
 a1g = ArrowRightGray()
@@ -136,6 +148,8 @@ allArrows.add(a3g)
 allArrows.add(a3)
 allArrows.add(a4g)
 allArrows.add(a4)
+
+playSong(FPS)
 
 while running:
   clock.tick(FPS)
