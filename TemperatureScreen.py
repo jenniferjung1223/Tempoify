@@ -119,3 +119,15 @@ def game_intro():
         clock.tick(15)
 
 game_intro()
+
+######################################################################################
+
+def button(text, x, y, width, height, inactive_color, active_color, action=None):
+    cur = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    # print(click)
+    if x + width > cur[0] > x and y + height > cur[1] > y:
+        pygame.draw.rect(gameDisplay, active_color, (x, y, width, height))
+        if click[0] == 1 and action != None:
+            if action == "next":
+                import Tempo 2.0
