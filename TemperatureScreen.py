@@ -1,8 +1,20 @@
 import pygame
 import time
 import random
+# Import the ADS1x15 module.
+import Adafruit_ADS1x15
 
 pygame.init()
+
+
+# Create an ADS1115 ADC (16-bit) instance.
+adc = Adafruit_ADS1x15.ADS1115()
+
+# Choose a gain of 1 for reading voltages from 0 to 4.09V.
+GAIN = 1
+
+# Start continuous ADC conversions on channel 0 using the previously set gain value.
+adc.start_adc(1 , gain=GAIN)
 
 display_width = 800
 display_height =450 
@@ -90,7 +102,39 @@ def pause():
         
 
         clock.tick(5)
+        
+def button(text, x, y, width, height, inactive_color, active_color, action=None):
+    cur = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    # print(click)
+    if x + width > cur[0] > x and y + height > cur[1] > y:
+        pygame.draw.rect(gameDisplay, active_color, (x, y, width, height))
+        if click[0] == 1 and action != None:
+            if action == "next":
+                import Main_Game
 
+    else:
+        pygame.draw.rect(gameDisplay, inactive_color, (x, y, width, height))
+
+        text_to_button(text, black, x, y, width, height)
+
+
+def getValues():
+    # Read channel 0 for 5 seconds and print out its values.
+    start = time.time()
+    while (time.time() - start) <= 1.0:
+        # Read the last ADC conversion value and print it out.
+        value = adc.get_last_result()
+    if value <= 19999:
+        # this will return the slow song
+        return 20
+    elif value >= 21999:
+        # fast song
+        return 46
+    else:
+        # medium
+        return 30
+        
 
 def game_intro():
     intro = True
@@ -103,6 +147,7 @@ def game_intro():
                 quit()
 
             if event.type == pygame.KEYDOWN:
+
                 if event.key == pygame.K_c:
                     intro = False
                 elif event.key == pygame.K_q:
@@ -114,20 +159,11 @@ def game_intro():
         message_to_screen("Let's start. First, touch the temperature sensor :)", black, 10)
         message_to_screen("Don't be afraid, it won't kill you... yet *smile*", black, 50)
 
-        pygame.display.update()
+       # button("Play", 150, 375, 100, 50, green, light_green, action="play")
 
+        button("Next", 150, 300, 100, 50, green, light_green, action="next")
+        pygame.display.update()
         clock.tick(15)
 
 game_intro()
-
-######################################################################################
-
-def button(text, x, y, width, height, inactive_color, active_color, action=None):
-    cur = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    # print(click)
-    if x + width > cur[0] > x and y + height > cur[1] > y:
-        pygame.draw.rect(gameDisplay, active_color, (x, y, width, height))
-        if click[0] == 1 and action != None:
-            if action == "next":
-                import Tempo 2.0
+adc.stop_adc()
