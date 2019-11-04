@@ -2,7 +2,6 @@ import pygame, sys
 from pygame.locals import *
 from random import randint
 from time import sleep
-from pygame_functions import *
 
 #Variables
 WIDTH = 800
@@ -19,6 +18,46 @@ pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 
+#####################################
+# Gray Arrows
+
+class ArrowRightGray(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray right.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 25)
+
+
+class ArrowLeftGray(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray left.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 125)
+
+        
+class ArrowUpGray(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray up.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 250)
+
+class ArrowDownGray(pygame.sprite.Sprite):
+  
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray down.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 375)
 
 class ArrowRight(pygame.sprite.Sprite):
   
@@ -75,15 +114,27 @@ class ArrowDown(pygame.sprite.Sprite):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
         self.rect.right = 0
-     
+
 allArrows = pygame.sprite.Group()
+a1g = ArrowRightGray()
 a1 = ArrowRight()
+
+a2g = ArrowLeftGray()
 a2 = ArrowLeft()
+
+a3g = ArrowUpGray()
 a3 = ArrowUp()
+
+a4g = ArrowDownGray()
 a4 = ArrowDown()
+
+allArrows.add(a1g)
 allArrows.add(a1)
+allArrows.add(a2g)
 allArrows.add(a2)
+allArrows.add(a3g)
 allArrows.add(a3)
+allArrows.add(a4g)
 allArrows.add(a4)
 
 while running:
@@ -91,7 +142,27 @@ while running:
   
   #Update
   allArrows.update()
+
+  keys = pygame.key.get_pressed()
   
+  for event in pygame.event.get():
+      if keys[pygame.K_RIGHT]:
+          if pygame.sprite.collide_rect(a1, a1g):
+              a1.rect.center = (900, 600)
+      elif keys[pygame.K_LEFT]:
+          if pygame.sprite.collide_rect(a2, a2g):
+              a2.rect.center = (900, 600)
+      elif keys[pygame.K_UP]:
+          if pygame.sprite.collide_rect(a3, a3g):
+              a3.rect.center = (900, 600)
+      elif keys[pygame.K_DOWN]:
+          if pygame.sprite.collide_rect(a4, a4g):
+              a4.rect.center = (900, 600)
   #draw
   screen.fill(sALMoN)
   allArrows.draw(screen)
+
+  pygame.display.flip()
+
+pygame.quit()
+
