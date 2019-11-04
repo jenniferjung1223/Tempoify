@@ -1,3 +1,12 @@
+#################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = This is the code for Tempoify. This is a game about
+#		using your temperature to choose a song for you to
+#		play a game with.
+#Date = November 3, 2019
+###################################################################
+
 import pygame, sys
 from pygame.locals import *
 from random import randint
