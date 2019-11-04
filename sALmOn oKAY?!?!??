@@ -9,7 +9,7 @@ HEIGHT = 450
 FPS = 30
 running = True
 BLACK = (0, 0, 0)
-sALMoN = (253, 171, 159)
+SALMON = (253, 171, 159)
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tempoify")
@@ -159,7 +159,7 @@ while running:
           if pygame.sprite.collide_rect(a4, a4g):
               a4.rect.center = (900, 600)
   #draw
-  screen.fill(sALMoN)
+  screen.fill(SALMON)
   allArrows.draw(screen)
 
   pygame.display.flip()
