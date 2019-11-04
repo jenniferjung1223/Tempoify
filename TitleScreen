@@ -14,7 +14,7 @@ pygame.display.set_caption('Tempoify')
 #icon = pygame.image.load("bookshelves.gif")
 #pygame.display.set_icon(icon)
 
-white = (255, 255, 255)
+white  = (255, 255, 255)
 black = (0, 0, 0)
 
 red = (200, 0, 0)
@@ -83,7 +83,7 @@ def button(text, x, y, width, height, inactive_color, active_color, action=None)
                 pass
 
             if action == "play":
-                pass
+                import TemperatureScreen
 
     else:
         pygame.draw.rect(gameDisplay, inactive_color, (x, y, width, height))
@@ -146,5 +146,6 @@ def game_intro():
         clock.tick(15)
 
 game_intro()
+
 
 
