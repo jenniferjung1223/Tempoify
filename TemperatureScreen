@@ -1,16 +1,17 @@
 #################################################################
 #AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 #TITLE = Tempoify
-#Discription = This is the code for Tempoify. This is a game about
-#		using your temperature to choose a song for you to
-#		play a game with.
+#Discription = This pulls up the screen that takes your temperture.
 #Date = November 8, 2019
 ###################################################################
 
+#Things to import
 import pygame
 import time
 # Import the ADS1x15 module.
 import Adafruit_ADS1x15
+
+###
 
 pygame.init()
 # Create an ADS1115 ADC (16-bit) instance.
@@ -45,6 +46,11 @@ smallfont = pygame.font.SysFont("tahoma", 25)
 medfont = pygame.font.SysFont("tahoma", 50)
 largefont = pygame.font.SysFont("tahoma", 75)
 
+###
+
+#Functions
+
+function deffines text sizes
 def text_objects(text, color, size="small"):
     if size == "small":
         textSurface = smallfont.render(text, True, color)
@@ -69,6 +75,7 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
     textRect.center = x, y
     gameDisplay.blit(textSurf, textRect)
 
+#Pause function
 def pause():
     paused = True
     message_to_screen("Paused",blue,-100,size="large")
@@ -117,6 +124,9 @@ def getValues():
         # returns a value that plays the medium song
         return 30
 
+###
+
+#Function that ties it all together
 def game_intro():
     intro = True
     while intro:
