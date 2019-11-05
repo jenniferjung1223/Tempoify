@@ -1,3 +1,13 @@
+################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = This is the code for Tempoify. This is a game about
+#		using your temperature to choose a song for you to
+#		play a game with.
+#Date = November 8, 2019
+###################################################################
+
+
 import pygame
 import time
 import random
@@ -8,11 +18,11 @@ display_width = 800
 display_height = 450
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
+background = pygame.image.load("background1.jpg")
+# scale it so that it won't be pixelated!
+background = pygame.transform.scale(background,(display_width,display_height))
 
 pygame.display.set_caption('Tempoify')
-
-#icon = pygame.image.load("bookshelves.gif")
-#pygame.display.set_icon(icon)
 
 white  = (255, 255, 255)
 black = (0, 0, 0)
@@ -117,6 +127,7 @@ def game_intro():
     intro = True
 
     while intro:
+        gameDisplay.blit(background,(0,0))
         for event in pygame.event.get():
             # print(event)
             if event.type == pygame.QUIT:
@@ -131,11 +142,11 @@ def game_intro():
                     pygame.quit()
                     quit()
 
-        gameDisplay.fill(white)
-        message_to_screen("Welcome to Tempoify!", green, -100, size="large")
-        message_to_screen("The objective is to become happy!", black, -30)
-        message_to_screen("We take your temperature and based on your mood", black, 10)
-        message_to_screen("we give you the best game possible.", black, 50)
+        message_to_screen("Welcome to Tempoify!", red, -100, size="large")
+        message_to_screen("The objective is to become happy!", yellow, -30)
+        message_to_screen("We take your temperature and based on your mood", yellow, 10)
+        message_to_screen("we give you the best game possible.", yellow, 50)
+        message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", yellow, 90)
         # message_to_screen("Press C to play, P to pause or Q to quit",black,180)
 
         button("Play", 150, 375, 100, 50, green, light_green, action="play")
