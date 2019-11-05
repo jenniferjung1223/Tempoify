@@ -1,17 +1,24 @@
+#################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = The GPIO file
+#Date = November 3, 2019
+###################################################################
+
 #things to import
 import RPi.GPIO as GPIO # RPi.GPIO can be referred as GPIO from now
 from time import sleep
 
-#####################################
+###
 
 #set GPIO mode
 GPIO.setmode(GPIO.BCM)
 
-#####################################
+###
 
 GPIO.setwarnings(False)
 
-#####################################
+###
 
 #functions
 
@@ -46,7 +53,7 @@ def lose():
 ##    sleep(0.5)
 ##    GPIO.output(12, GPIO.HIGH)
 
-#########################################
+###
 
 #main loop
 try:
