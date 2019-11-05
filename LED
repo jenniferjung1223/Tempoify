@@ -1,10 +1,21 @@
+#things to import
 import RPi.GPIO as GPIO # RPi.GPIO can be referred as GPIO from now
 from time import sleep
 
+#####################################
+
+#set GPIO mode
 GPIO.setmode(GPIO.BCM)
+
+#####################################
 
 GPIO.setwarnings(False)
 
+#####################################
+
+#functions
+
+#This is the function that is called if you loose
 def lose():
     GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
@@ -20,6 +31,7 @@ def lose():
     GPIO.output(22, GPIO.HIGH)
     sleep(0.5)
     
+#this is the function that is called if you win
 ##def win():
 ##    GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
 ##    GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
@@ -34,6 +46,9 @@ def lose():
 ##    sleep(0.5)
 ##    GPIO.output(12, GPIO.HIGH)
 
+#########################################
+
+#main loop
 try:
     lose()
             
