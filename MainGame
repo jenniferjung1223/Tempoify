@@ -19,7 +19,7 @@ from TemperatureScreen import *
 #Variables
 WIDTH = 800
 HEIGHT = 450
-FPS = 50
+FPS = getValues()
 running = True
 BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
