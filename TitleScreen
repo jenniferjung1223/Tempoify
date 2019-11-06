@@ -10,8 +10,6 @@ import pygame
 import time
 import random
 
-###
-
 #Initualize pygame
 pygame.init()
 
@@ -34,31 +32,18 @@ black = (0, 0, 0)
 red = (200, 0, 0)
 light_red = (255, 0, 0)
 
-yellow = (200, 200, 0)
-light_yellow = (255, 255, 0)
 
 green = (34, 177, 76)
 light_green = (0, 255, 0)
-purple = (169, 21, 179)
-dark_purple = (90, 21, 179)
+blue = (0, 0, 128)
+sky_blue = (14, 77, 146)
+diamond = (183, 233, 247)
 
 clock = pygame.time.Clock()
 
 smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("comicsansms", 50)
 largefont = pygame.font.SysFont("comicsansms", 90)
-
-
-
-#Functions
-
-#Function that displays the score
-##def score(score):
-##
-##    text = smallfont.render("Score: "+str(score), True, black)
-##    gameDisplay.blit(text, [0,0])
-
-###
 
 #Function that defines text size
 def text_objects(text, color, size="small"):
@@ -101,35 +86,13 @@ def button(text, x, y, width, height, inactive_color, active_color, action=None)
             if action == "controls":
                 pass
 
-            if action == "play":
+            if action == "next":
                 import TemperatureScreen
 
     else:
         pygame.draw.rect(gameDisplay, inactive_color, (x, y, width, height))
 
     text_to_button(text, black, x, y, width, height)
-
-#Pause function
-def pause():
-
-    paused = True
-    message_to_screen("Paused",black,-100,size="large")
-    message_to_screen("Press C to continue playing or Q to quit",black,25)
-    pygame.display.update()
-    while paused:
-        for event in pygame.event.get():
-                
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    quit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_c:
-                        paused = False
-                    elif event.key == pygame.K_q:
-                        pygame.quit()
-                        quit()
-
-        clock.tick(5)
         
 ###
 
@@ -153,21 +116,20 @@ def game_intro():
                     pygame.quit()
                     quit()
 
-        message_to_screen("Welcome to Tempoify!", dark_purple, -100, size="large")
-        message_to_screen("The objective is to become happy!", purple, -30)
-        message_to_screen("We take your temperature and based on your mood", purple, 10)
-        message_to_screen("we give you the best game possible.", purple, 50)
-        message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", purple, 90)
-        # message_to_screen("Press C to play, P to pause or Q to quit",black,180)
+        message_to_screen("Welcome to Tempoify!", blue, -100, size="large")
+        message_to_screen("This is a game where your temperature will determine the song and tempo of the song!", blue, -50)
+        message_to_screen("We hope that you will enjoy the game!", blue, -10)
+        message_to_screen("When you are ready, please start pinching the thermistor to measure your temperature.", blue, 30)
+        message_to_screen("Press Next as you are pinching the thermistor.", blue, 70)
+        message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", blue, 100)
 
-        button("Play", 150, 375, 100, 50, green, light_green, action="play")
-        button("Quit", 550, 375, 100, 50, red, light_red, action="quit")
+        button("Next", 150, 360, 100, 50, green, light_green, action="next")
+        button("Quit", 550, 360, 100, 50, sky_blue, diamond, action="quit")
 
         pygame.display.update()
 
         clock.tick(15)
 
 game_intro()
-
 
 
