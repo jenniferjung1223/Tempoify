@@ -1,0 +1,222 @@
+#################################################################
+#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+#TITLE = Tempoify
+#Discription = This is the code for Tempoify. This is a game about
+#		using your temperature to choose a song for you to
+#		play a game with.
+#Date = November 3, 2019
+###################################################################
+
+#things to import
+import pygame, sys
+from pygame.locals import *
+from random import randint
+from time import sleep
+#from TemperatureScreen import *
+
+###
+
+#Variables
+WIDTH = 800
+HEIGHT = 450
+FPS = 50
+running = True
+BLACK = (0, 0, 0)
+SALMON = (253, 171, 159)
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Tempoify")
+
+pygame.init()
+pygame.mixer.init()
+clock = pygame.time.Clock()
+
+###
+
+# Gray Arrows classes
+class ArrowRightGray(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray right.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 25)
+
+
+class ArrowLeftGray(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray left.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 125)
+
+        
+class ArrowUpGray(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray up.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 250)
+
+class ArrowDownGray(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("gray down.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (750, 375)
+
+###
+
+#moving arrows classes
+class ArrowRight(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("red right.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (ranX(), 25)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = ranX()
+
+class ArrowLeft(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("blue left.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (ranX(), 125)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = ranX()
+
+class ArrowUp(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("green up.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (ranX(), 250)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = ranX()
+
+class ArrowDown(pygame.sprite.Sprite):
+  def __init__(self):
+    pygame.sprite.Sprite.__init__(self)
+    self.image = pygame.image.load("yellow down.png").convert()
+    self.image.set_colorkey(BLACK)
+    self.rect = self.image.get_rect()
+    self.rect.center = (ranX(), 375)
+
+  def update(self):
+    self.rect.x += 5
+    if (self.rect.left > (WIDTH + 50)):
+        self.rect.right = ranX()
+
+###
+
+#Functions
+
+#This picks the correct song to play based off the FPS
+def playSong(speed):
+  if (speed > 45):
+    #play the fast song
+    fast.play(30)
+  elif (speed > 25):
+    #play the medium song
+    medium.play(30)
+  else:
+    #play the slow song
+    slow.play(30)
+
+#This function generates a random X value to call the arrow to so it can be random
+def ranX():
+    x = randint(-2000, -25)
+    return x
+
+###
+
+#This puts all sprites in the same group for easy updating purposes
+allArrows = pygame.sprite.Group()
+
+###
+
+#Instances of each arrow
+a1g = ArrowRightGray()
+a1 = ArrowRight()
+
+a2g = ArrowLeftGray()
+a2 = ArrowLeft()
+
+a3g = ArrowUpGray()
+a3 = ArrowUp()
+
+a4g = ArrowDownGray()
+a4 = ArrowDown()
+
+###
+
+#adds each arrow to the sprite group
+allArrows.add(a1g)
+allArrows.add(a1)
+allArrows.add(a2g)
+allArrows.add(a2)
+allArrows.add(a3g)
+allArrows.add(a3)
+allArrows.add(a4g)
+allArrows.add(a4)
+
+###
+
+#Sets the song to what song its going to be
+##slow = pygame.mixer.Sound("slow.wav")
+##medium = pygame.mixer.Sound("medium.wav")
+##fast = pygame.mixer.Sound("fast.wav")
+
+#########################################
+#MAIN PART OF THE PROGRAM
+#########################################
+
+#playSong(FPS)
+
+while running:
+  clock.tick(FPS)
+  
+  #Update
+  allArrows.update()
+
+  keys = pygame.key.get_pressed()
+  
+  #This loop is to check if the key is pressed correctly for the arrows
+  for event in pygame.event.get():
+      if keys[pygame.K_RIGHT]:
+          if pygame.sprite.collide_rect(a1, a1g):
+              a1.rect.center = (ranX(), 25)
+      elif keys[pygame.K_LEFT]:
+          if pygame.sprite.collide_rect(a2, a2g):
+              a2.rect.center = (ranX(), 125)
+      elif keys[pygame.K_UP]:
+          if pygame.sprite.collide_rect(a3, a3g):
+              a3.rect.center = (ranX(), 250)
+      elif keys[pygame.K_DOWN]:
+          if pygame.sprite.collide_rect(a4, a4g):
+              a4.rect.center = (ranX(), 375)
+              
+  #draw
+  screen.fill(SALMON)
+  allArrows.draw(screen)
+
+  pygame.display.flip()
+
+pygame.quit()
+
