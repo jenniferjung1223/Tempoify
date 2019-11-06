@@ -25,6 +25,7 @@ BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
 RED = (255, 0, 0)
 miss = 0
+score = 0
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tempoify")
@@ -174,25 +175,30 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
 
 #This puts all sprites in the same group for easy updating purposes
 allArrows = pygame.sprite.Group()
+allArrows2 = pygame.sprite.Group()
 
 ###
 
 #Instances of each arrow
 a1g = ArrowRightGray()
 a1 = ArrowRight()
+a11 = ArrowRight()
 
 a2g = ArrowLeftGray()
 a2 = ArrowLeft()
+a22 = ArrowLeft()
 
 a3g = ArrowUpGray()
 a3 = ArrowUp()
+a33 = ArrowUp()
 
 a4g = ArrowDownGray()
 a4 = ArrowDown()
+a44 = ArrowDown()
 
 ###
 
-#adds each arrow to the sprite group
+#adds each arrow to a sprite group
 allArrows.add(a1g)
 allArrows.add(a1)
 allArrows.add(a2g)
@@ -201,6 +207,11 @@ allArrows.add(a3g)
 allArrows.add(a3)
 allArrows.add(a4g)
 allArrows.add(a4)
+
+allArrows2.add(a11)
+allArrows2.add(a22)
+allArrows2.add(a33)
+allArrows2.add(a44)
 
 ###
 
@@ -229,15 +240,19 @@ while running:
         if keys[pygame.K_RIGHT]:
             if pygame.sprite.collide_rect(a1, a1g):
                 a1.rect.center = (ranX(), 25)
+                score += 1
         elif keys[pygame.K_LEFT]:
             if pygame.sprite.collide_rect(a2, a2g):
                 a2.rect.center = (ranX(), 125)
+                score += 1
         elif keys[pygame.K_UP]:
             if pygame.sprite.collide_rect(a3, a3g):
                 a3.rect.center = (ranX(), 250)
+                score += 1
         elif keys[pygame.K_DOWN]:
             if pygame.sprite.collide_rect(a4, a4g):
                 a4.rect.center = (ranX(), 375)
+                score += 1
 
     #this counts the misses if the arrows are missed
     if (a1.rect.left > (WIDTH + 40)):
@@ -254,7 +269,8 @@ while running:
         slow.stop()
         medium.stop()
         screen.fill(RED)
-        message_to_screen("Ya did a loose...", BLACK, -100, size = "large")
+        message_to_screen("Game Over...", BLACK, -100, size = "large")
+        message_to_screen("Your score is: " + str(score), BLACK, 100, size = "medium")
         pygame.display.flip()
         loose.play(3)
         sleep(3)
@@ -263,6 +279,10 @@ while running:
     #draw
     screen.fill(SALMON)
     allArrows.draw(screen)
+
+    #if you are on the hardest level, you have multiple sets of arrows called
+    if (FPS > 45):
+      allArrows2.draw(screen)
 
     message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
 
