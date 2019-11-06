@@ -22,7 +22,7 @@ display_width = 800
 display_height = 450
 
 gameDisplay = pygame.display.set_mode((display_width, display_height))
-background = pygame.image.load("background1.jpg")
+background = pygame.image.load("background2.JPG")
 # scale it so that it won't be pixelated!
 background = pygame.transform.scale(background,(display_width,display_height))
 
@@ -39,18 +39,16 @@ light_yellow = (255, 255, 0)
 
 green = (34, 177, 76)
 light_green = (0, 255, 0)
+purple = (169, 21, 179)
+dark_purple = (90, 21, 179)
 
 clock = pygame.time.Clock()
 
 smallfont = pygame.font.SysFont("comicsansms", 25)
 medfont = pygame.font.SysFont("comicsansms", 50)
-largefont = pygame.font.SysFont("comicsansms", 75)
+largefont = pygame.font.SysFont("comicsansms", 90)
 
 
-#img = pygame.image.load('bookshelves.gif')
-# appleimg = pygame.image.load('apple.png')
-
-###
 
 #Functions
 
@@ -155,11 +153,11 @@ def game_intro():
                     pygame.quit()
                     quit()
 
-        message_to_screen("Welcome to Tempoify!", red, -100, size="large")
-        message_to_screen("The objective is to become happy!", yellow, -30)
-        message_to_screen("We take your temperature and based on your mood", yellow, 10)
-        message_to_screen("we give you the best game possible.", yellow, 50)
-        message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", yellow, 90)
+        message_to_screen("Welcome to Tempoify!", dark_purple, -100, size="large")
+        message_to_screen("The objective is to become happy!", purple, -30)
+        message_to_screen("We take your temperature and based on your mood", purple, 10)
+        message_to_screen("we give you the best game possible.", purple, 50)
+        message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", purple, 90)
         # message_to_screen("Press C to play, P to pause or Q to quit",black,180)
 
         button("Play", 150, 375, 100, 50, green, light_green, action="play")
