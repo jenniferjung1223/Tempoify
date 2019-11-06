@@ -1,7 +1,7 @@
 #################################################################
 #AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 #TITLE = Tempoify
-#Discription = The GPIO file
+#Description = The GPIO file
 #Date = November 3, 2019
 ###################################################################
 
@@ -22,17 +22,19 @@ GPIO.setwarnings(False)
 
 #functions
 
-#This is the function that is called if you loose
+#This is the function that is called if you lose
 def lose():
+    #this setups the led lights to their gpio
     GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
-     
     GPIO.setup(5, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(19, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(26, GPIO.OUT, initial =  GPIO.LOW)
     GPIO.setup(4, GPIO.OUT, initial =  GPIO.LOW)
+    
+    #starts the blinking lights
     sleep(0.2)
     GPIO.output(12, GPIO.HIGH)
     sleep(0.2)
