@@ -12,17 +12,19 @@ import pygame, sys
 from pygame.locals import *
 from random import randint
 from time import sleep
-from TemperatureScreen import *
+#from TemperatureScreen import *
 
 ###
 
 #Variables
 WIDTH = 800
 HEIGHT = 450
-FPS = getValues()
+FPS = 50
 running = True
 BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
+RED = (255, 0, 0)
+miss = 0
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Tempoify")
@@ -30,6 +32,10 @@ pygame.display.set_caption("Tempoify")
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
+
+smallfont = pygame.font.SysFont("comicsansms", 25)
+medfont = pygame.font.SysFont("comicsansms", 50)
+largefont = pygame.font.SysFont("comicsansms", 90)
 
 ###
 
@@ -77,12 +83,12 @@ class ArrowRight(pygame.sprite.Sprite):
     self.image = pygame.image.load("red right.png").convert()
     self.image.set_colorkey(BLACK)
     self.rect = self.image.get_rect()
-    self.rect.center = (25, 25)
+    self.rect.center = (ranX(), 25)
 
   def update(self):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
-        self.rect.right = 0
+        self.rect.right = ranX()
 
 class ArrowLeft(pygame.sprite.Sprite):
   def __init__(self):
@@ -90,12 +96,12 @@ class ArrowLeft(pygame.sprite.Sprite):
     self.image = pygame.image.load("blue left.png").convert()
     self.image.set_colorkey(BLACK)
     self.rect = self.image.get_rect()
-    self.rect.center = (25, 125)
+    self.rect.center = (ranX(), 125)
 
   def update(self):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
-        self.rect.right = 0
+        self.rect.right = ranX()
 
 class ArrowUp(pygame.sprite.Sprite):
   def __init__(self):
@@ -103,12 +109,12 @@ class ArrowUp(pygame.sprite.Sprite):
     self.image = pygame.image.load("green up.png").convert()
     self.image.set_colorkey(BLACK)
     self.rect = self.image.get_rect()
-    self.rect.center = (25, 250)
+    self.rect.center = (ranX(), 250)
 
   def update(self):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
-        self.rect.right = 0
+        self.rect.right = ranX()
 
 class ArrowDown(pygame.sprite.Sprite):
   def __init__(self):
@@ -116,14 +122,16 @@ class ArrowDown(pygame.sprite.Sprite):
     self.image = pygame.image.load("yellow down.png").convert()
     self.image.set_colorkey(BLACK)
     self.rect = self.image.get_rect()
-    self.rect.center = (25, 375)
+    self.rect.center = (ranX(), 375)
 
   def update(self):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
-        self.rect.right = 0
-
+        self.rect.right = ranX()
+        
 ###
+
+#Functions
 
 #This picks the correct song to play based off the FPS
 def playSong(speed):
@@ -136,6 +144,31 @@ def playSong(speed):
   else:
     #play the slow song
     slow.play(30)
+
+#This function generates a random X value to call the arrow to so it can be random
+def ranX():
+    x = randint(-2000, -25)
+    return x
+
+#Function that defines text size
+def text_objects(text, color, size="small"):
+    if size == "small":
+        textSurface = smallfont.render(text, True, color)
+    if size == "medium":
+        textSurface = medfont.render(text, True, color)
+    if size == "large":
+        textSurface = largefont.render(text, True, color)
+
+    return textSurface, textSurface.get_rect()
+
+#function that makes it easy to put text to the screen
+def message_to_screen(msg, color, y_displace=0, size="small"):
+    textSurf, textRect = text_objects(msg, color, size)
+    x = int(round((WIDTH / 2)))
+    y = int(round((HEIGHT / 2) + y_displace))
+
+    textRect.center = x, y
+    screen.blit(textSurf, textRect)
 
 ###
 
@@ -175,6 +208,7 @@ allArrows.add(a4)
 slow = pygame.mixer.Sound("slow.wav")
 medium = pygame.mixer.Sound("medium.wav")
 fast = pygame.mixer.Sound("fast.wav")
+loose = pygame.mixer.Sound("loose.wav")
 
 #########################################
 #MAIN PART OF THE PROGRAM
@@ -183,33 +217,55 @@ fast = pygame.mixer.Sound("fast.wav")
 playSong(FPS)
 
 while running:
-  clock.tick(FPS)
-  
-  #Update
-  allArrows.update()
+    clock.tick(FPS)
 
-  keys = pygame.key.get_pressed()
-  
-  #This loop is to check if the key is pressed correctly for the arrows
-  for event in pygame.event.get():
-      if keys[pygame.K_RIGHT]:
-          if pygame.sprite.collide_rect(a1, a1g):
-              a1.rect.center = (900, 600)
-      elif keys[pygame.K_LEFT]:
-          if pygame.sprite.collide_rect(a2, a2g):
-              a2.rect.center = (900, 600)
-      elif keys[pygame.K_UP]:
-          if pygame.sprite.collide_rect(a3, a3g):
-              a3.rect.center = (900, 600)
-      elif keys[pygame.K_DOWN]:
-          if pygame.sprite.collide_rect(a4, a4g):
-              a4.rect.center = (900, 600)
-              
-  #draw
-  screen.fill(SALMON)
-  allArrows.draw(screen)
+    #Update
+    allArrows.update()
 
-  pygame.display.flip()
+    keys = pygame.key.get_pressed()
+
+    #This loop is to check if the key is pressed correctly for the arrows
+    for event in pygame.event.get():
+        if keys[pygame.K_RIGHT]:
+            if pygame.sprite.collide_rect(a1, a1g):
+                a1.rect.center = (ranX(), 25)
+        elif keys[pygame.K_LEFT]:
+            if pygame.sprite.collide_rect(a2, a2g):
+                a2.rect.center = (ranX(), 125)
+        elif keys[pygame.K_UP]:
+            if pygame.sprite.collide_rect(a3, a3g):
+                a3.rect.center = (ranX(), 250)
+        elif keys[pygame.K_DOWN]:
+            if pygame.sprite.collide_rect(a4, a4g):
+                a4.rect.center = (ranX(), 375)
+
+    #this counts the misses if the arrows are missed
+    if (a1.rect.left > (WIDTH + 40)):
+        miss += 1
+    if (a2.rect.left > (WIDTH + 40)):
+        miss += 1
+    if (a3.rect.left > (WIDTH + 40)):
+        miss += 1
+    if (a4.rect.left > (WIDTH + 40)):
+        miss += 1
+
+    if (int(miss / 2) > 5):
+        fast.stop()
+        slow.stop()
+        medium.stop()
+        screen.fill(RED)
+        message_to_screen("Ya did a loose...", BLACK, -100, size = "large")
+        pygame.display.flip()
+        loose.play(3)
+        sleep(3)
+        pygame.quit()
+        
+    #draw
+    screen.fill(SALMON)
+    allArrows.draw(screen)
+
+    message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
+
+    pygame.display.flip()
 
 pygame.quit()
-
