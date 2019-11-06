@@ -12,7 +12,7 @@ import pygame, sys
 from pygame.locals import *
 from random import randint
 from time import sleep
-#from TemperatureScreen import *
+from TemperatureScreen import *
 
 ###
 
