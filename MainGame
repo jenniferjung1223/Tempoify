@@ -285,6 +285,7 @@ while running:
       allArrows2.draw(screen)
 
     message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
+    message_to_screen("Score: " + str(score), BLACK, -200, size = "small")
 
     pygame.display.flip()
 
