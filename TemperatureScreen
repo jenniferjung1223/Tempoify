@@ -13,6 +13,7 @@ import Adafruit_ADS1x15
 
 # initialize pygame
 pygame.init()
+clock = pygame.time.Clock()
 
 # create an ADS1115 ADC (16-bit) instance.
 adc = Adafruit_ADS1x15.ADS1115()
@@ -37,9 +38,6 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 128)
 SKY_BLUE = (122, 215, 240)
 DIAMOND = (183, 233, 247)
-
-# help track time
-clock = pygame.time.Clock()
 
 # get the font 
 smallfont = pygame.font.SysFont("tahoma", 25)
