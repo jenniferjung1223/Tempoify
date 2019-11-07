@@ -1,10 +1,10 @@
-#################################################################
-#AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
-#TITLE = Tempoify
-#Description = This is the code for Tempoify. This is a game about
-#		using your temperature to choose a song for you to
-#		play a game with.
-#Date = November 7, 2019
+###################################################################
+# AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
+# TITLE = Tempoify
+# Description = This is the code for Tempoify. This is a game about
+#	using your temperature to choose a song for you to
+#	play a game with.
+# Date = November 7, 2019
 ###################################################################
 
 # necessary imports for game
@@ -14,10 +14,12 @@ from random import randint
 from time import sleep
 from TemperatureScreen import *
 
-# variables 
+# width and height of the screen
 WIDTH = 800
 HEIGHT = 450
 FPS = getValues()
+# RGB needed to make the colors
+SKY_BLUE = (122, 215, 240)
 BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
 RED = (255, 0, 0)
@@ -34,7 +36,7 @@ pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 
-# get the font "tahoma" to use
+# get the font
 smallfont = pygame.font.SysFont("tahoma", 25)
 medfont = pygame.font.SysFont("tahoma", 50)
 largefont = pygame.font.SysFont("tahoma", 90)
