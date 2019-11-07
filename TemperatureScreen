@@ -25,11 +25,11 @@ adc.start_adc(1 , gain=GAIN)
 # width and height of the screen
 WIDTH = 800
 HEIGHT =450
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))
 # load the image for the background
 background = pygame.image.load("TemperatureScreen.jpg")
 # scale it so that it won't be pixelated!
-background = pygame.transform.scale(background,(display_width,display_height))
+background = pygame.transform.scale(background,(WIDTH,HEIGHT))
 # title of this program
 pygame.display.set_caption("Tempoify")
 
@@ -63,8 +63,8 @@ def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size
 # function that allows message to be created
 def message_to_screen(msg, color, y_displace=0, size="small"):
     textSurf, textRect = text_objects(msg, color, size)
-    x = int(round((display_width / 2)))
-    y = int(round((display_height / 2) + y_displace))
+    x = int(round((WIDTH / 2)))
+    y = int(round((HEIGHT / 2) + y_displace))
 
     textRect.center = x, y
     gameDisplay.blit(textSurf, textRect)
@@ -129,3 +129,4 @@ def game_intro():
 
 game_intro()
 adc.stop_adc()
+
