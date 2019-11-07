@@ -26,8 +26,6 @@ pygame.display.set_caption("Tempoify")
 # RGB needed to make colors
 WHITE  = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (200, 0, 0)
-LIGHT_RED = (255, 0, 0)
 GREEN = (34, 177, 76)
 LIGHT_GREEN = (0, 255, 0)
 BLUE = (0, 0, 128)
@@ -37,7 +35,7 @@ DIAMOND = (183, 233, 247)
 # get the font 
 smallfont = pygame.font.SysFont("tahoma", 25)
 medfont = pygame.font.SysFont("tahoma", 50)
-largefont = pygame.font.SysFont("tahoma", 90)
+largefont = pygame.font.SysFont("tahoma", 80)
 
 # function that defines text size
 def text_objects(text, color, size="small"):
@@ -80,7 +78,7 @@ def button(text, x, y, width, height, inactive_color, active_color, action=None)
                 import TemperatureScreen
     else:
         pygame.draw.rect(gameDisplay, inactive_color, (x, y, width, height))
-    text_to_button(text, black, x, y, width, height)       
+    text_to_button(text, BLACK, x, y, width, height)       
 
 # main function that ties everything together
 def game_intro():
@@ -100,10 +98,12 @@ def game_intro():
                     quit()
         
         # creates messages on the screen
-        message_to_screen("Welcome to Tempoify!", BLUE, -100, size="large")
-        message_to_screen("This is a game where your temperature will determine the song and tempo of the song!", BLUE, -50)
-        message_to_screen("We hope that you will enjoy the game!", BLUE, -10)
-        message_to_screen("When you are ready, please start pinching the thermistor to measure your temperature.", BLUE, 30)
+        message_to_screen("Welcome to Tempoify!", BLUE, -150, size="large")
+        message_to_screen("This is a game where your temperature will determine", BLUE, -100)
+        message_to_screen("the song and tempo of the song!", BLUE, -70)
+        message_to_screen("We hope that you will enjoy the game!", BLUE, -30)
+        message_to_screen("When you are ready, please start pinching the thermistor to", BLUE, 0)
+        message_to_screen("measure your temperature.", BLUE, 30)
         message_to_screen("Press Next as you are pinching the thermistor.", BLUE, 70)
         message_to_screen("By: Alayna Juneau, Colby Boyd, and Jennifer Jung", BLUE, 100)
         # creates the buttons on the screen
