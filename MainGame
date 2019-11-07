@@ -302,8 +302,8 @@ while running:
     # draw the arrows on the screen
     allArrows.draw(screen)
     # this shows the miss and score count while you are playing the game
-    message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
-    message_to_screen("Score: " + str(score), BLACK, -200, size = "small")
+    message_to_screen("Missed: " + str(int(miss / 2)), BLUE, 200, size = "small")
+    message_to_screen("Score: " + str(score), BLUE, -200, size = "small")
     
     pygame.display.flip()
 
