@@ -17,10 +17,10 @@ clock = pygame.time.Clock()
 # width and height for screen
 WIDTH = 800
 HEIGHT = 450
-gameDisplay = pygame.display.set_mode((display_width, display_height))
-background = pygame.image.load("background2.JPG")
+gameDisplay = pygame.display.set_mode((WIDTH, HEIGHT))
+background = pygame.image.load("TitleScreen.jpg")
 # scale it so that it won't be pixelated!
-background = pygame.transform.scale(background,(display_width,display_height))
+background = pygame.transform.scale(background,(WIDTH,HEIGHT))
 pygame.display.set_caption("Tempoify")
 
 # RGB needed to make colors
@@ -58,8 +58,8 @@ def text_to_button(msg, color, buttonx, buttony, buttonwidth, buttonheight, size
 # function that puts text to the screen
 def message_to_screen(msg, color, y_displace=0, size="small"):
     textSurf, textRect = text_objects(msg, color, size)
-    x = int(round((display_width / 2)))
-    y = int(round((display_height / 2) + y_displace))
+    x = int(round((WIDTH / 2)))
+    y = int(round((HEIGHT / 2) + y_displace))
     textRect.center = x, y
     gameDisplay.blit(textSurf, textRect)
 
