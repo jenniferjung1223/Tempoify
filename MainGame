@@ -21,7 +21,6 @@ FPS = getValues()
 # RGB needed to make the colors
 SKY_BLUE = (122, 215, 240)
 BLACK = (0, 0, 0)
-SALMON = (253, 171, 159)
 RED = (255, 0, 0)
 running = True
 miss = 0
@@ -259,7 +258,7 @@ while running:
         pygame.quit()
         
     # background color of the main game screen
-    screen.fill(SALMON)
+    screen.fill(SKY_BLUE)
     # draw the arrows on the screen
     allArrows.draw(screen)
 
