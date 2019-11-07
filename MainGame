@@ -10,14 +10,27 @@
 # necessary imports for game
 import pygame, sys
 from pygame.locals import *
+import RPi.GPIO as GPIO
 from random import randint
 from time import sleep
 from TemperatureScreen import *
 
+# initialize pygame
+pygame.init()
+pygame.mixer.init()
+clock = pygame.time.Clock()
+
+#set GPIO mode
+GPIO.setmode(GPIO.BCM)
 # width and height of the screen
 WIDTH = 800
 HEIGHT = 450
 FPS = getValues()
+# screen size is based on variables WIDTH and HEIGHT
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# set title of game
+pygame.display.set_caption("Tempoify")
+
 # RGB needed to make the colors
 SKY_BLUE = (122, 215, 240)
 BLACK = (0, 0, 0)
@@ -25,16 +38,6 @@ RED = (255, 0, 0)
 running = True
 miss = 0
 score = 0
-
-# screen size is based on variables WIDTH and HEIGHT
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-# set title of game
-pygame.display.set_caption("Tempoify")
-
-# initialize pygame
-pygame.init()
-pygame.mixer.init()
-clock = pygame.time.Clock()
 
 # get the font
 smallfont = pygame.font.SysFont("tahoma", 25)
@@ -162,8 +165,40 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
     y = int(round((HEIGHT / 2) + y_displace))
     textRect.center = x, y
     screen.blit(textSurf, textRect)
+
+# function for if the player loses the game
+def lose():
+  #this setups the led lights to their GPIO
+  try:
+    GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(5, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(19, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(26, GPIO.OUT, initial =  GPIO.LOW)
+    GPIO.setup(4, GPIO.OUT, initial =  GPIO.LOW)
     
-#This puts all sprites in the same group for easy updating purposes
+    #starts the blinking lights
+    sleep(0.2)
+    GPIO.output(12, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.setup(5, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.output(21, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.setup(22, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.setup(13, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.output(4, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.setup(19, GPIO.HIGH)
+    sleep(0.2)
+    GPIO.output(26, GPIO.HIGH)
+    sleep(0.2)
+    
+# this puts all sprites in the same group for easy updating purposes
 allArrows = pygame.sprite.Group()
 allArrows2 = pygame.sprite.Group()
 
@@ -181,7 +216,7 @@ secondA2 = ArrowLeft()
 secondA3 = ArrowUp()
 secondA4 = ArrowDown()
 
-#adds each arrow to a sprite group
+# adds each arrow to a sprite group
 allArrows.add(a1g)
 allArrows.add(a2g)
 allArrows.add(a3g)
@@ -203,7 +238,7 @@ lose = pygame.mixer.Sound("lose.wav")
 
 ######################################################################
 # MAIN PART OF THE PROGRAM
-#####################################################################
+######################################################################
 
 # this plays the song
 playSong(FPS)
@@ -214,7 +249,7 @@ while running:
     allArrows.update()
     # create keys for the arrow keys
     keys = pygame.key.get_pressed()
-
+    
     # this loop is to check if the key is pressed correctly for the arrows
     for event in pygame.event.get():
         if keys[pygame.K_RIGHT]:
@@ -234,7 +269,7 @@ while running:
                 a4.rect.center = (ranX(), 375)
                 score += 1
                 
-    #this counts the misses if the arrows are missed
+    # this counts the misses if the arrows are missed
     if (a1.rect.left > (WIDTH + 40)):
         miss += 1
     if (a2.rect.left > (WIDTH + 40)):
@@ -253,23 +288,29 @@ while running:
         message_to_screen("Game Over...", BLACK, -100, size = "large")
         message_to_screen("Your score is: " + str(score), BLACK, 100, size = "medium")
         pygame.display.flip()
+        lose()
         lose.play(3)
         sleep(3)
         pygame.quit()
-        
+
+    # if you are on the hardest level, you have multiple sets of arrows called
+    if (FPS > 45):
+      allArrows2.draw(screen)
+      
     # background color of the main game screen
     screen.fill(SKY_BLUE)
     # draw the arrows on the screen
     allArrows.draw(screen)
-
-    #if you are on the hardest level, you have multiple sets of arrows called
-    if (FPS > 45):
-      allArrows2.draw(screen)
-    
     # this shows the miss and score count while you are playing the game
     message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
     message_to_screen("Score: " + str(score), BLACK, -200, size = "small")
     
     pygame.display.flip()
- 
+
+# CTRL + C cleans up breadboard           
+except KeyboardInterrupt:
+    GPIO.cleanup()
+
+# quit the game
 pygame.quit()
+
