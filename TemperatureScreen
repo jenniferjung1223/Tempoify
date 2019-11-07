@@ -1,8 +1,8 @@
 ###################################################################
 # AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 # TITLE = Tempoify
-# Description = This pulls up the screen that takes your temperture.
-# Date = November 8, 2019
+# DESCRIPTION = This pulls up the screen that takes your temperture.
+# DATE = November 7, 2019
 ###################################################################
 
 # neccessary imports for game
@@ -11,6 +11,7 @@ import time
 # import the ADS1x15 module
 import Adafruit_ADS1x15
 
+# initialize pygame
 pygame.init()
 
 # create an ADS1115 ADC (16-bit) instance.
