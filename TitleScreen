@@ -1,7 +1,7 @@
 ################################################################
 # AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 # TITLE = Tempoify
-# DESCRIPTION = This displays the title screen
+# DESCRIPTION = This displays the title screen.
 # DATE = November 7, 2019
 ###################################################################
 
@@ -9,6 +9,10 @@
 import pygame
 import time
 import random
+
+# initialize pygame
+pygame.init()
+clock = pygame.time.Clock()
 
 # width and height for screen
 WIDTH = 800
@@ -18,10 +22,6 @@ background = pygame.image.load("background2.JPG")
 # scale it so that it won't be pixelated!
 background = pygame.transform.scale(background,(display_width,display_height))
 pygame.display.set_caption("Tempoify")
-
-# initialize pygame
-pygame.init()
-clock = pygame.time.Clock()
 
 # RGB needed to make colors
 WHITE  = (255, 255, 255)
@@ -82,7 +82,7 @@ def button(text, x, y, width, height, inactive_color, active_color, action=None)
         pygame.draw.rect(gameDisplay, inactive_color, (x, y, width, height))
     text_to_button(text, black, x, y, width, height)       
 
-# main game function that ties everything together
+# main function that ties everything together
 def game_intro():
     intro = True
     while intro:
@@ -112,4 +112,5 @@ def game_intro():
         # update the display 
         pygame.display.update()
         clock.tick(15)
+        
 game_intro()
