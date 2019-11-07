@@ -1,46 +1,45 @@
 #################################################################
 #AUTHOR = JENNIFER JUNG, COLBY BOYD, ALAYNA JUNEAU
 #TITLE = Tempoify
-#Discription = This is the code for Tempoify. This is a game about
+#Description = This is the code for Tempoify. This is a game about
 #		using your temperature to choose a song for you to
 #		play a game with.
-#Date = November 3, 2019
+#Date = November 7, 2019
 ###################################################################
 
-#things to import
+# necessary imports for game
 import pygame, sys
 from pygame.locals import *
 from random import randint
 from time import sleep
 from TemperatureScreen import *
 
-###
-
-#Variables
+# variables 
 WIDTH = 800
 HEIGHT = 450
 FPS = getValues()
-running = True
 BLACK = (0, 0, 0)
 SALMON = (253, 171, 159)
 RED = (255, 0, 0)
+running = True
 miss = 0
 score = 0
 
+# screen size is based on variables WIDTH and HEIGHT
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# set title of game
 pygame.display.set_caption("Tempoify")
 
 pygame.init()
 pygame.mixer.init()
 clock = pygame.time.Clock()
 
-smallfont = pygame.font.SysFont("comicsansms", 25)
-medfont = pygame.font.SysFont("comicsansms", 50)
-largefont = pygame.font.SysFont("comicsansms", 90)
+# get the font "tahoma" to use
+smallfont = pygame.font.SysFont("tahoma", 25)
+medfont = pygame.font.SysFont("tahoma", 50)
+largefont = pygame.font.SysFont("tahoma", 90)
 
-###
-
-# Gray Arrows classes
+# gray arrows classes
 class ArrowRightGray(pygame.sprite.Sprite):
   def __init__(self):
     pygame.sprite.Sprite.__init__(self)
@@ -48,7 +47,6 @@ class ArrowRightGray(pygame.sprite.Sprite):
     self.image.set_colorkey(BLACK)
     self.rect = self.image.get_rect()
     self.rect.center = (750, 25)
-
 
 class ArrowLeftGray(pygame.sprite.Sprite):
   def __init__(self):
@@ -58,7 +56,6 @@ class ArrowLeftGray(pygame.sprite.Sprite):
     self.rect = self.image.get_rect()
     self.rect.center = (750, 125)
 
-        
 class ArrowUpGray(pygame.sprite.Sprite):
   def __init__(self):
     pygame.sprite.Sprite.__init__(self)
@@ -75,9 +72,7 @@ class ArrowDownGray(pygame.sprite.Sprite):
     self.rect = self.image.get_rect()
     self.rect.center = (750, 375)
 
-###
-
-#moving arrows classes
+# moving arrows classes
 class ArrowRight(pygame.sprite.Sprite):
   def __init__(self):
     pygame.sprite.Sprite.__init__(self)
@@ -129,12 +124,8 @@ class ArrowDown(pygame.sprite.Sprite):
     self.rect.x += 5
     if (self.rect.left > (WIDTH + 50)):
         self.rect.right = ranX()
-        
-###
 
-#Functions
-
-#This picks the correct song to play based off the FPS
+# functions; This picks the correct song to play based off the temperature
 def playSong(speed):
   if (speed > 45):
     #play the fast song
@@ -146,12 +137,12 @@ def playSong(speed):
     #play the slow song
     slow.play(30)
 
-#This function generates a random X value to call the arrow to so it can be random
+# this function generates a random X value to call the arrow to so it can be random
 def ranX():
     x = randint(-2000, -25)
     return x
 
-#Function that defines text size
+# function that defines text size
 def text_objects(text, color, size="small"):
     if size == "small":
         textSurface = smallfont.render(text, True, color)
@@ -162,7 +153,7 @@ def text_objects(text, color, size="small"):
 
     return textSurface, textSurface.get_rect()
 
-#function that makes it easy to put text to the screen
+# function that puts text to the screen
 def message_to_screen(msg, color, y_displace=0, size="small"):
     textSurf, textRect = text_objects(msg, color, size)
     x = int(round((WIDTH / 2)))
@@ -170,72 +161,60 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
 
     textRect.center = x, y
     screen.blit(textSurf, textRect)
-
-###
-
+    
 #This puts all sprites in the same group for easy updating purposes
 allArrows = pygame.sprite.Group()
 allArrows2 = pygame.sprite.Group()
 
-###
-
-#Instances of each arrow
+# instances of each arrow
 a1g = ArrowRightGray()
-a1 = ArrowRight()
-a11 = ArrowRight()
-
 a2g = ArrowLeftGray()
-a2 = ArrowLeft()
-a22 = ArrowLeft()
-
 a3g = ArrowUpGray()
-a3 = ArrowUp()
-a33 = ArrowUp()
-
 a4g = ArrowDownGray()
+a1 = ArrowRight()
+a2 = ArrowLeft()
+a3 = ArrowUp()
 a4 = ArrowDown()
-a44 = ArrowDown()
-
-###
+secondA1 = ArrowRight()
+secondA2 = ArrowLeft()
+secondA3 = ArrowUp()
+secondA4 = ArrowDown()
 
 #adds each arrow to a sprite group
 allArrows.add(a1g)
-allArrows.add(a1)
 allArrows.add(a2g)
-allArrows.add(a2)
 allArrows.add(a3g)
-allArrows.add(a3)
 allArrows.add(a4g)
+allArrows.add(a1)
+allArrows.add(a2)
+allArrows.add(a3)
 allArrows.add(a4)
+allArrows2.add(secondA1)
+allArrows2.add(secondA2)
+allArrows2.add(secondA3)
+allArrows2.add(secondA4)
 
-allArrows2.add(a11)
-allArrows2.add(a22)
-allArrows2.add(a33)
-allArrows2.add(a44)
-
-###
-
-#Sets the song to what song its going to be
+# sets each tempo to their respective songs
 slow = pygame.mixer.Sound("slow.wav")
 medium = pygame.mixer.Sound("medium.wav")
 fast = pygame.mixer.Sound("fast.wav")
-loose = pygame.mixer.Sound("loose.wav")
+lose = pygame.mixer.Sound("lose.wav")
 
-#########################################
-#MAIN PART OF THE PROGRAM
-#########################################
+######################################################################
+# MAIN PART OF THE PROGRAM
+#####################################################################
 
+# this plays the song
 playSong(FPS)
 
 while running:
     clock.tick(FPS)
-
-    #Update
+    # update the arrows
     allArrows.update()
-
+    # create keys for the arrow keys
     keys = pygame.key.get_pressed()
 
-    #This loop is to check if the key is pressed correctly for the arrows
+    # this loop is to check if the key is pressed correctly for the arrows
     for event in pygame.event.get():
         if keys[pygame.K_RIGHT]:
             if pygame.sprite.collide_rect(a1, a1g):
@@ -253,7 +232,7 @@ while running:
             if pygame.sprite.collide_rect(a4, a4g):
                 a4.rect.center = (ranX(), 375)
                 score += 1
-
+                
     #this counts the misses if the arrows are missed
     if (a1.rect.left > (WIDTH + 40)):
         miss += 1
@@ -263,7 +242,8 @@ while running:
         miss += 1
     if (a4.rect.left > (WIDTH + 40)):
         miss += 1
-
+  
+    # if you miss more than 5 times, then the main song stop and it will show a Game Over screen with your score
     if (int(miss / 2) > 5):
         fast.stop()
         slow.stop()
@@ -272,21 +252,23 @@ while running:
         message_to_screen("Game Over...", BLACK, -100, size = "large")
         message_to_screen("Your score is: " + str(score), BLACK, 100, size = "medium")
         pygame.display.flip()
-        loose.play(3)
+        lose.play(3)
         sleep(3)
         pygame.quit()
         
-    #draw
+    # background color of the main game screen
     screen.fill(SALMON)
+    # draw the arrows on the screen
     allArrows.draw(screen)
 
     #if you are on the hardest level, you have multiple sets of arrows called
     if (FPS > 45):
       allArrows2.draw(screen)
-
+    
+    # this shows the miss and score count while you are playing the game
     message_to_screen("Missed: " + str(int(miss / 2)), BLACK, 200, size = "small")
     message_to_screen("Score: " + str(score), BLACK, -200, size = "small")
-
+    
     pygame.display.flip()
-
+ 
 pygame.quit()
