@@ -117,10 +117,10 @@ def game_intro():
                     quit()
 
         # show messages on the screen for the user to read
-        message_to_screen("Now, please pinch the thermistor!", BLUE, -100)
-        message_to_screen("It will immediately start measuring your temperature.", BLUE, -50)
-        message_to_screen("The song and tempo and will be fast, neutral, or slow according", BLUE, 0)
-        message_to_screen("to your temperature. Press the Play button when you are ready!", BLUE, 50)
+        message_to_screen("The song and tempo and will be fast, neutral, or slow according", BLUE, -100)
+        message_to_screen("to your temperature. Press the Play button when you are ready!", BLUE, -50)
+        message_to_screen("Also, just letting you know, if you miss 5", BLUE, 0)
+        message_to_screen("It's a Game Over! Try to get the best score!", BLUE, 50)
         # create the button
         button("Play", 350, 300, 100, 50, SKY_BLUE, DIAMOND, action="play")
         # update the screen so that everything appears one the screen, otherwise, it will be a black screen!
@@ -129,4 +129,3 @@ def game_intro():
 
 game_intro()
 adc.stop_adc()
-
