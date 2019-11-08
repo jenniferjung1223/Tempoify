@@ -167,36 +167,35 @@ def message_to_screen(msg, color, y_displace=0, size="small"):
     screen.blit(textSurf, textRect)
 
 # function for if the player loses the game
-def lose():
+def loser():
   #this setups the led lights to their GPIO
-  try:
-    GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(5, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(19, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(26, GPIO.OUT, initial =  GPIO.LOW)
-    GPIO.setup(4, GPIO.OUT, initial =  GPIO.LOW)
-    
-    #starts the blinking lights
-    sleep(0.2)
-    GPIO.output(12, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.setup(5, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.output(21, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.setup(22, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.setup(13, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.output(4, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.setup(19, GPIO.HIGH)
-    sleep(0.2)
-    GPIO.output(26, GPIO.HIGH)
-    sleep(0.2)
+  GPIO.setup(13, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(12, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(21, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(22, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(5, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(19, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(26, GPIO.OUT, initial =  GPIO.LOW)
+  GPIO.setup(4, GPIO.OUT, initial =  GPIO.LOW)
+  
+  #starts the blinking lights
+  sleep(0.2)
+  GPIO.output(12, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.setup(5, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.output(21, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.setup(22, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.setup(13, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.output(4, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.setup(19, GPIO.HIGH)
+  sleep(0.2)
+  GPIO.output(26, GPIO.HIGH)
+  sleep(0.2)
     
 # this puts all sprites in the same group for easy updating purposes
 allArrows = pygame.sprite.Group()
@@ -288,7 +287,7 @@ while running:
         message_to_screen("Game Over...", BLACK, -100, size = "large")
         message_to_screen("Your score is: " + str(score), BLACK, 100, size = "medium")
         pygame.display.flip()
-        lose()
+        loser()
         lose.play(3)
         sleep(3)
         pygame.quit()
@@ -304,13 +303,9 @@ while running:
     # this shows the miss and score count while you are playing the game
     message_to_screen("Missed: " + str(int(miss / 2)), BLUE, 200, size = "small")
     message_to_screen("Score: " + str(score), BLUE, -200, size = "small")
-    
     pygame.display.flip()
 
-# CTRL + C cleans up breadboard           
-except KeyboardInterrupt:
-    GPIO.cleanup()
-
+# clean up the pins       
+GPIO.cleanup()
 # quit the game
 pygame.quit()
-
